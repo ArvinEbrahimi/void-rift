@@ -95,20 +95,20 @@ src/webgl/
 ### 3.2 Materials & Shaders
 
 - [ ] **H-MAT-01** Split monolithic `shaders.js` into `.glsl` files with Vite `?raw` import
-- [ ] **H-MAT-02** Shell shader v2:
+- [x] **H-MAT-02** Shell shader v2 (partial — key/rim wrap lighting, 6-octave FBM, thickness absorption):
   - 6-octave FBM displacement
   - Ridged multifractal for crystal facets
   - Hex-domain repetition for panel lines
   - Thickness-aware fresnel (view-dependent absorption)
   - Subsurface scatter fake (wrap lighting term)
-- [ ] **H-MAT-03** Tunnel shader v2: logarithmic spiral UV, depth fog inside tunnel, event horizon darkening
+- [x] **H-MAT-03** Tunnel shader v2: logarithmic spiral UV, depth fog inside tunnel, event horizon darkening
 - [ ] **H-MAT-04** Unified `uQuality` uniform — degrades octaves on mobile
 - [ ] **H-MAT-05** Temporal stability — no shader flicker at grazing angles (clamp derivatives)
 - [ ] **H-MAT-06** Normal reconstruction from displacement for accurate fresnel
 
 ### 3.3 Lighting (Critical — highest impact)
 
-- [ ] **H-LGT-01** **Lighting rig** module with named roles:
+- [x] **H-LGT-01** **Lighting rig** module with named roles:
   | Light | Type | Role |
   |-------|------|------|
   | Key | Spot / Point | Main violet highlight on rift upper-left |
@@ -116,16 +116,16 @@ src/webgl/
   | Rim | Point (animated) | Orbits slowly — edge separation |
   | Core | Point (pulse) | Inner void illumination |
   | Accent | 6× micro points | Hex corner highlights |
-- [ ] **H-LGT-02** Light color temps: key `#c4a0ff`, fill `#0a0520`, rim `#7c3aed`
-- [ ] **H-LGT-03** Mouse influences key light position (subtle, lerped)
-- [ ] **H-LGT-04** Scroll dims key / brightens fill (hero → content handoff)
+- [x] **H-LGT-02** Light color temps: key `#c4a0ff`, fill `#0a0520`, rim `#7c3aed`
+- [x] **H-LGT-03** Mouse influences key light position (subtle, lerped)
+- [x] **H-LGT-04** Scroll dims key / brightens fill (hero → content handoff)
 - [ ] **H-LGT-05** Optional: PMREM env map from procedural cube render for hex frame metalness
-- [ ] **H-LGT-06** Fake volumetric: additive cone meshes or god-ray shader aligned to key light
+- [x] **H-LGT-06** Fake volumetric: additive cone meshes or god-ray shader aligned to key light
 
 ### 3.4 Softness & Atmosphere
 
 - [ ] **H-ATM-01** Layered fog: near `FogExp2` + far custom shader fog on particles
-- [ ] **H-ATM-02** Nebula → 3 parallax planes at Z = -2, -5, -9 with different scroll factors
+- [x] **H-ATM-02** Nebula → 3 parallax planes at Z = -2, -5, -9 with different scroll factors
 - [ ] **H-ATM-03** Depth-based particle opacity (fade with distance from camera)
 - [ ] **H-ATM-04** Soft particle edges: gaussian falloff in fragment, not hard `discard` circle
 - [ ] **H-ATM-05** Vignette driven by scroll (opens up as user scrolls down)
@@ -133,10 +133,10 @@ src/webgl/
 
 ### 3.5 Motion & Choreography
 
-- [ ] **H-MOT-01** Intro camera path (GSAP + custom curve): start Z=8 → settle Z=5 over 3s
+- [x] **H-MOT-01** Intro camera path (GSAP + custom curve): start Z=8 → settle Z=5 over 3s
 - [ ] **H-MOT-02** Rift reveal: scale + `uReveal` + light intensity — single orchestrated timeline
 - [ ] **H-MOT-03** Breathing: multi-frequency sine stack (not single `sin(time)`)
-- [ ] **H-MOT-04** Scroll-linked: rift scale, Y offset, tunnel twist, particle emit rate
+- [x] **H-MOT-04** Scroll-linked: rift scale, Y offset, tunnel twist, particle emit rate (partial)
 - [ ] **H-MOT-05** Velocity-aware scroll (lenis or custom): fast scroll = motion blur hint on particles
 - [ ] **H-MOT-06** Idle state: after 8s no input, subtle autonomous camera drift
 - [ ] **H-MOT-07** `prefers-reduced-motion`: freeze displacement, instant reveal, no camera path
@@ -146,7 +146,7 @@ src/webgl/
 - [ ] **H-POST-01** Selective bloom — luminance mask from rift + stars only
 - [ ] **H-POST-02** Bloom levels: ghosting on brightest veins only (mipmap chain tuning)
 - [ ] **H-POST-03** Chromatic aberration: radial, stronger at viewport edges, mouse-offset
-- [ ] **H-POST-04** Color grading pass: lift shadows `#03030a`, gain highlights `#f0e8ff`, gamma 1.1
+- [x] **H-POST-04** Color grading pass (partial — BrightnessContrast + scroll vignette)
 - [ ] **H-POST-05** Optional DOF: focus on rift, blur nebula background (Performance Tier B+)
 - [ ] **H-POST-06** Anti-banding: subtle dither in final composite
 

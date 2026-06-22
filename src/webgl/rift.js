@@ -52,6 +52,8 @@ export function createRift(scene) {
     uMouse: { value: 0 },
     uReveal: { value: 0 },
     uScroll: { value: 0 },
+    uKeyLightPos: { value: new THREE.Vector3(-2.8, 3.2, 4.5) },
+    uRimLightPos: { value: new THREE.Vector3(2.5, 0, 2.8) },
   };
 
   const shellMat = new THREE.ShaderMaterial({
@@ -142,14 +144,6 @@ export function createRift(scene) {
   });
   group.add(shards);
 
-  const rimLight = new THREE.PointLight(0x8b4dff, 2.5, 8);
-  rimLight.position.set(0, 0.5, 1.8);
-  group.add(rimLight);
-
-  const coreLight = new THREE.PointLight(0x5a22cc, 2.0, 5);
-  coreLight.position.set(0, 0, 0);
-  group.add(coreLight);
-
   group.scale.setScalar(0.01);
 
   let scrollProgress = 0;
@@ -158,6 +152,11 @@ export function createRift(scene) {
   return {
     group,
     shell,
+    uniforms,
+    bindLighting(lightUniforms) {
+      uniforms.uKeyLightPos = lightUniforms.uKeyLightPos;
+      uniforms.uRimLightPos = lightUniforms.uRimLightPos;
+    },
     reveal() {
       gsap.to(uniforms.uReveal, {
         value: 1,
@@ -204,9 +203,6 @@ export function createRift(scene) {
       ringA.rotation.z += 0.0032;
       ringB.rotation.z -= 0.0024;
       ringC.rotation.z += 0.0016;
-
-      rimLight.intensity = 2.5 + mouseProximity * 2.5 + Math.sin(time * 1.5) * 0.4;
-      coreLight.intensity = 2.0 + mouseProximity * 1.5;
 
       const orbits = shards.userData.orbits;
       const speeds = shards.userData.speeds;

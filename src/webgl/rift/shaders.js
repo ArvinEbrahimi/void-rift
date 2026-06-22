@@ -19,7 +19,7 @@ export const NOISE_GLSL = `
   float fbm3(vec3 p) {
     float value = 0.0;
     float amplitude = 0.5;
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 6; i++) {
       value += amplitude * noise3(p);
       p *= 2.03;
       amplitude *= 0.5;
@@ -87,6 +87,8 @@ export const shellFragmentShader = `
   uniform float uTime;
   uniform float uReveal;
   uniform float uMouse;
+  uniform vec3 uKeyLightPos;
+  uniform vec3 uRimLightPos;
   varying vec3 vNormal;
   varying vec3 vWorldPos;
   varying vec3 vViewDir;
@@ -106,6 +108,14 @@ export const shellFragmentShader = `
     float scan = sin((vWorldPos.y + vWorldPos.x) * 12.0 - uTime * 2.5) * 0.5 + 0.5;
     scan = pow(scan, 8.0) * 0.35;
 
+    vec3 N = normalize(vNormal);
+    vec3 keyDir = normalize(uKeyLightPos - vWorldPos);
+    vec3 rimDir = normalize(uRimLightPos - vWorldPos);
+    float keyWrap = clamp(dot(N, keyDir) * 0.55 + 0.45, 0.0, 1.0);
+    float rimWrap = clamp(dot(N, rimDir) * 0.5 + 0.5, 0.0, 1.0);
+    float thickness = pow(fresnel, 1.8);
+    float absorption = 1.0 - smoothstep(0.0, 0.65, thickness) * 0.35;
+
     vec3 voidCore = vec3(0.01, 0.005, 0.04);
     vec3 innerGlow = vec3(0.35, 0.08, 0.95);
     vec3 edgeGlow = vec3(0.72, 0.32, 1.0);
@@ -117,6 +127,8 @@ export const shellFragmentShader = `
     col += edgeGlow * scan;
     col += innerGlow * vDisplace * 1.4;
     col += vec3(0.2, 0.05, 0.5) * vHex * fresnel;
+    col += vec3(0.55, 0.25, 1.0) * keyWrap * 0.45 * absorption;
+    col += vec3(0.45, 0.15, 0.85) * rimWrap * 0.35 * (1.0 - thickness);
 
     float chroma = fresnel * 0.15;
     col.r += chroma * 0.4;
@@ -124,7 +136,7 @@ export const shellFragmentShader = `
 
     col *= pulse;
 
-    float alpha = (fresnel * 0.85 + veins * 0.35 + vDisplace * 0.25) * uReveal;
+    float alpha = (fresnel * 0.85 + veins * 0.35 + vDisplace * 0.25 + keyWrap * 0.1) * uReveal;
     alpha = clamp(alpha, 0.0, 1.0);
 
     gl_FragColor = vec4(col, alpha);
@@ -179,15 +191,17 @@ export const tunnelFragmentShader = `
 
   void main() {
     float radius = length(vPosition.xy);
-    float swirl = atan(vPosition.y, vPosition.x) + radius * 3.0 - uTime * 1.8;
-    float bands = sin(swirl * 6.0) * 0.5 + 0.5;
+    float swirl = atan(vPosition.y, vPosition.x) + log(radius + 0.5) * 2.5 - uTime * 1.8;
+    float bands = sin(swirl * 8.0) * 0.5 + 0.5;
     float depth = smoothstep(1.2, 0.0, radius);
+    float horizon = smoothstep(0.15, 0.0, radius);
 
     float n = fbm3(vec3(vUv * 4.0, uTime * 0.15));
-    vec3 col = mix(vec3(0.01, 0.0, 0.03), vec3(0.25, 0.05, 0.55), bands * 0.4 + n * 0.2);
+    vec3 col = mix(vec3(0.005, 0.0, 0.02), vec3(0.25, 0.05, 0.55), bands * 0.4 + n * 0.2);
     col += vec3(0.45, 0.12, 0.85) * pow(bands, 4.0) * depth * 0.6;
+    col = mix(col, vec3(0.0), horizon * 0.85);
 
-    float alpha = (depth * 0.75 + bands * 0.15) * uReveal;
+    float alpha = (depth * 0.75 + bands * 0.15) * uReveal * (1.0 - horizon * 0.5);
     gl_FragColor = vec4(col, alpha);
   }
 `;

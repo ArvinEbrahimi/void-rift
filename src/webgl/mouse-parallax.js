@@ -1,4 +1,4 @@
-export function createMouseParallax(camera) {
+export function createMouseParallax() {
   const mouse = { x: 0, y: 0 };
   const target = { x: 0, y: 0 };
 
@@ -12,12 +12,8 @@ export function createMouseParallax(camera) {
       target.x += (mouse.x - target.x) * 0.04;
       target.y += (mouse.y - target.y) * 0.04;
 
-      camera.position.x = target.x * 0.5;
-      camera.position.y = target.y * 0.3;
-      camera.lookAt(0, 0, 0);
-
       const dist = Math.sqrt(target.x ** 2 + target.y ** 2);
-      const proximity = Math.max(0, 1 - dist);
+      const proximity = Math.max(0, 1 - dist * 0.85);
 
       return { target, proximity };
     },
