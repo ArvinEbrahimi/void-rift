@@ -333,42 +333,42 @@ createResizeHandler({ camera, renderer, composer }) → { destroy }
 
 ### Phase 0 — Documentation
 - [x] **T-000** Create TASKS.md with full specification
-- [ ] **T-001** PR: `docs/project-spec-and-tasks` → `main`
+- [x] **T-001** PR: `docs/project-spec-and-tasks` → `main`
 
 ### Phase 1 — Scaffold (`feat/project-scaffold`)
-- [ ] **T-100** `package.json` with three, gsap, postprocessing, vite
-- [ ] **T-101** `vite.config.js` with dev server config
-- [ ] **T-102** `index.html` — meta, `#canvas-container`, cursor elements
-- [ ] **T-103** `.gitignore` — node_modules, dist, .DS_Store, .env
-- [ ] **T-104** PR → merge
+- [x] **T-100** `package.json` with three, gsap, postprocessing, vite
+- [x] **T-101** `vite.config.js` with dev server config
+- [x] **T-102** `index.html` — meta, `#canvas-container`, cursor elements
+- [x] **T-103** `.gitignore` — node_modules, dist, .DS_Store, .env
+- [x] **T-104** PR → merge
 
 ### Phase 2 — WebGL Core (`feat/webgl-core`)
-- [ ] **T-200** `scene.js` — fog, camera, ACES renderer
-- [ ] **T-201** `particles.js` — stars (6K) + dust (3K) + rift particles (800)
-- [ ] **T-202** `nebula.js` — FBM procedural nebula plane
-- [ ] **T-203** `rift.js` — displaced icosahedron + core + ring
-- [ ] **T-204** PR → merge
+- [x] **T-200** `scene.js` — fog, camera, ACES renderer
+- [x] **T-201** `particles.js` — stars (6K) + dust (3K) + rift particles (800)
+- [x] **T-202** `nebula.js` — FBM procedural nebula plane
+- [x] **T-203** `rift.js` — displaced icosahedron + core + ring
+- [x] **T-204** PR → merge
 
 ### Phase 3 — Effects & Utils (`feat/webgl-effects`)
-- [ ] **T-300** `postprocessing.js` — bloom, CA, vignette
-- [ ] **T-301** `mouse-parallax.js` — camera lerp + proximity
-- [ ] **T-302** `raf.js` — unified animation loop
-- [ ] **T-303** `resize.js` — debounced responsive handler
-- [ ] **T-304** PR → merge
+- [x] **T-300** `postprocessing.js` — bloom, CA, vignette
+- [x] **T-301** `mouse-parallax.js` — camera lerp + proximity
+- [x] **T-302** `raf.js` — unified animation loop
+- [x] **T-303** `resize.js` — debounced responsive handler
+- [x] **T-304** PR → merge
 
 ### Phase 4 — UI Layer (`feat/ui-layer`)
-- [ ] **T-400** `style.css` — full design system, overlay, cursor, responsive
-- [ ] **T-401** `overlay.js` — nav, name, coords, CTA DOM
-- [ ] **T-402** `intro-anim.js` — GSAP timeline + typewriter
-- [ ] **T-403** `cursor.js` — dot + ring with expand states
-- [ ] **T-404** PR → merge
+- [x] **T-400** `style.css` — full design system, overlay, cursor, responsive
+- [x] **T-401** `overlay.js` — nav, name, coords, CTA DOM
+- [x] **T-402** `intro-anim.js` — GSAP timeline + typewriter
+- [x] **T-403** `cursor.js` — dot + ring with expand states
+- [x] **T-404** PR → merge
 
 ### Phase 5 — Integration (`feat/integration`)
-- [ ] **T-500** `main.js` — bootstrap all modules, RAF, resize
-- [ ] **T-501** `README.md` — install, build, feature list
-- [ ] **T-502** Verify `npm run dev` renders full experience
-- [ ] **T-503** Verify `npm run build` succeeds
-- [ ] **T-504** PR → merge
+- [x] **T-500** `main.js` — bootstrap all modules, RAF, resize
+- [x] **T-501** `README.md` — install, build, feature list
+- [x] **T-502** Verify `npm run dev` renders full experience
+- [x] **T-503** Verify `npm run build` succeeds
+- [x] **T-504** PR → merge
 
 ---
 
