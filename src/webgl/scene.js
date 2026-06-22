@@ -21,7 +21,7 @@ export function createScene() {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.setClearColor(0x03030a, 1);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.2;
+  renderer.toneMappingExposure = 1.45;
 
   const container = document.querySelector('#canvas-container');
   container.appendChild(renderer.domElement);

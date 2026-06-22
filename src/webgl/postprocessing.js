@@ -14,9 +14,9 @@ export function createPostprocessing(renderer, scene, camera) {
   composer.addPass(new RenderPass(scene, camera));
 
   const bloom = new BloomEffect({
-    intensity: 1.8,
-    luminanceThreshold: 0.2,
-    luminanceSmoothing: 0.4,
+    intensity: 2.6,
+    luminanceThreshold: 0.12,
+    luminanceSmoothing: 0.3,
     mipmapBlur: true,
   });
 

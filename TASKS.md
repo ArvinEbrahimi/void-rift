@@ -27,7 +27,18 @@ A full-viewport hero that communicates *"this developer operates at a different 
 - No React Three Fiber
 - No Tailwind / Bootstrap / component libraries
 - No stock space textures — everything procedural via GLSL
-- No scroll-jacking or multi-section page (hero-only for v1)
+
+---
+
+## Phase 2 — Scroll Portfolio (Completed)
+
+- [x] Rift `uReveal` intro animation wired to GSAP timeline
+- [x] Scroll-driven rift shrink + upward drift
+- [x] Hero overlay fade on scroll
+- [x] Work / About / Contact sections with reveal animations
+- [x] Smooth nav scroll + active section highlighting
+- [x] Visual polish: stronger nebula, bloom, rift glow, outer ring
+- [x] Crosshair cursor near rift center
 
 ---
 
@@ -392,4 +403,4 @@ createResizeHandler({ camera, renderer, composer }) → { destroy }
 
 ---
 
-*Last updated: 2026-06-22*
+*Last updated: 2026-06-22 — Phase 2 complete*

@@ -54,7 +54,8 @@ const nebulaFragmentShader = `
     vec3 col = mix(uColorA, uColorB, n);
     col = mix(col, uColorC, blobL * 0.4 + blobR * 0.3);
 
-    float alpha = (blobL + blobR) * 0.18 * smoothstep(0.5, 0.0, length(uv));
+    float vignette = smoothstep(0.65, 0.05, length(uv));
+    float alpha = (blobL * 0.55 + blobR * 0.45 + n * 0.15) * 0.38 * vignette;
     gl_FragColor = vec4(col, alpha);
   }
 `;
