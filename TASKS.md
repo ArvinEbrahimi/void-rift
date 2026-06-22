@@ -90,7 +90,9 @@ void-rift/
 ├── package.json
 ├── .gitignore
 ├── README.md
-├── TASKS.md                   # This file
+├── TASKS.md                   # Master project board
+├── TASKS-HERO.md              # Expert-level WebGL hero roadmap
+├── TASKS-UI.md                # Next-gen UI / sections overhaul roadmap
 ├── public/
 │   └── (reserved for local woff2 if self-hosting fonts later)
 └── src/
@@ -415,4 +417,4 @@ createResizeHandler({ camera, renderer, composer }) → { destroy }
 
 ---
 
-*Last updated: 2026-06-22 — Phase 3 complete*
+*Last updated: 2026-06-22 — Phase 3 complete · See TASKS-HERO.md & TASKS-UI.md for next phases*
