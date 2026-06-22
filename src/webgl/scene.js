@@ -4,6 +4,9 @@ export function createScene() {
   const scene = new THREE.Scene();
   scene.fog = new THREE.FogExp2(0x03030a, 0.035);
 
+  const ambient = new THREE.AmbientLight(0x1a1035, 0.4);
+  scene.add(ambient);
+
   const camera = new THREE.PerspectiveCamera(
     60,
     window.innerWidth / window.innerHeight,

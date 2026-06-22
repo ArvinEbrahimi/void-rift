@@ -15,9 +15,9 @@ import { createResizeHandler } from './utils/resize.js';
 import { createScrollController } from './utils/scroll.js';
 
 const { scene, camera, renderer } = createScene();
-const particles = createParticles(scene);
-const nebula = createNebula(scene);
 const rift = createRift(scene);
+const particles = createParticles(scene, rift.group);
+const nebula = createNebula(scene);
 const pp = createPostprocessing(renderer, scene, camera);
 const parallax = createMouseParallax(camera);
 

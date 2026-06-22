@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-export function createParticles(scene) {
+export function createParticles(scene, riftGroup = null) {
   const starGeo = new THREE.BufferGeometry();
   const starCount = 6000;
   const starPos = new Float32Array(starCount * 3);
@@ -118,7 +118,7 @@ export function createParticles(scene) {
   scene.add(dust);
 
   const riftGeo = new THREE.BufferGeometry();
-  const riftCount = 800;
+  const riftCount = 1400;
   const riftPos = new Float32Array(riftCount * 3);
   const riftVel = new Float32Array(riftCount * 3);
   const riftLife = new Float32Array(riftCount);
@@ -130,53 +130,67 @@ export function createParticles(scene) {
 
   function resetRiftParticle(i) {
     const angle = Math.random() * Math.PI * 2;
-    const radius = Math.random() * 0.3;
-    riftPos[i * 3] = Math.cos(angle) * radius;
-    riftPos[i * 3 + 1] = Math.sin(angle) * radius;
-    riftPos[i * 3 + 2] = (Math.random() - 0.5) * 0.2;
+    const hexSides = 6;
+    const sector = Math.floor(angle / ((Math.PI * 2) / hexSides));
+    const sectorAngle = (sector / hexSides) * Math.PI * 2 - Math.PI / 2;
+    const mix = (angle - sectorAngle) / ((Math.PI * 2) / hexSides);
+    const nextAngle = sectorAngle + (Math.PI * 2) / hexSides;
+    const edgeAngle = THREE.MathUtils.lerp(sectorAngle, nextAngle, mix);
+    const radius = 1.05 + Math.random() * 0.25;
 
-    const speed = 0.02 + Math.random() * 0.04;
-    const dir = new THREE.Vector3(
-      riftPos[i * 3],
-      riftPos[i * 3 + 1],
-      riftPos[i * 3 + 2]
-    ).normalize();
+    riftPos[i * 3] = Math.cos(edgeAngle) * radius;
+    riftPos[i * 3 + 1] = (Math.random() - 0.5) * 0.18;
+    riftPos[i * 3 + 2] = Math.sin(edgeAngle) * radius;
 
+    const dir = new THREE.Vector3(riftPos[i * 3], riftPos[i * 3 + 1], riftPos[i * 3 + 2]).normalize();
+    const spiral = new THREE.Vector3(-dir.z, 0.03, dir.x).multiplyScalar(0.02);
+    dir.add(spiral).normalize();
+
+    const speed = 0.018 + Math.random() * 0.035;
     riftVel[i * 3] = dir.x * speed;
     riftVel[i * 3 + 1] = dir.y * speed;
-    riftVel[i * 3 + 2] = dir.z * speed + (Math.random() - 0.5) * 0.01;
+    riftVel[i * 3 + 2] = dir.z * speed;
 
-    riftLife[i] = Math.random();
-    riftSizes[i] = Math.random() * 0.15 + 0.05;
+    riftLife[i] = Math.random() * 0.3;
+    riftSizes[i] = Math.random() * 0.2 + 0.06;
   }
 
   riftGeo.setAttribute('position', new THREE.BufferAttribute(riftPos, 3));
   riftGeo.setAttribute('size', new THREE.BufferAttribute(riftSizes, 1));
+  riftGeo.setAttribute('life', new THREE.BufferAttribute(riftLife, 1));
 
   const riftMat = new THREE.ShaderMaterial({
     uniforms: {
       uTime: { value: 0 },
       uColorA: { value: new THREE.Color(0x6e3fff) },
-      uColorB: { value: new THREE.Color(0xa855f7) },
+      uColorB: { value: new THREE.Color(0xe0b0ff) },
+      uColorC: { value: new THREE.Color(0xa855f7) },
     },
     vertexShader: `
       attribute float size;
+      attribute float life;
       uniform float uTime;
+      varying float vLife;
       void main() {
+        vLife = life;
         vec4 mvPos = modelViewMatrix * vec4(position, 1.0);
-        gl_PointSize = size * (250.0 / -mvPos.z);
+        float flicker = 0.85 + 0.15 * sin(uTime * 8.0 + life * 20.0);
+        gl_PointSize = size * flicker * (280.0 / -mvPos.z);
         gl_Position = projectionMatrix * mvPos;
       }
     `,
     fragmentShader: `
       uniform vec3 uColorA;
       uniform vec3 uColorB;
+      uniform vec3 uColorC;
+      varying float vLife;
       void main() {
         float dist = length(gl_PointCoord - vec2(0.5));
         if (dist > 0.5) discard;
-        float alpha = (1.0 - smoothstep(0.0, 0.5, dist)) * 0.7;
-        vec3 col = mix(uColorA, uColorB, dist * 2.0);
-        gl_FragColor = vec4(col, alpha);
+        float soft = 1.0 - smoothstep(0.0, 0.5, dist);
+        float fade = smoothstep(0.0, 0.15, vLife) * (1.0 - smoothstep(0.75, 1.0, vLife));
+        vec3 col = mix(uColorA, mix(uColorB, uColorC, dist * 1.5), vLife);
+        gl_FragColor = vec4(col, soft * fade * 0.9);
       }
     `,
     transparent: true,
@@ -185,7 +199,8 @@ export function createParticles(scene) {
   });
 
   const riftParticles = new THREE.Points(riftGeo, riftMat);
-  scene.add(riftParticles);
+  if (riftGroup) riftGroup.add(riftParticles);
+  else scene.add(riftParticles);
 
   return {
     stars,
@@ -203,7 +218,7 @@ export function createParticles(scene) {
         riftPos[i * 3] += riftVel[i * 3];
         riftPos[i * 3 + 1] += riftVel[i * 3 + 1];
         riftPos[i * 3 + 2] += riftVel[i * 3 + 2];
-        riftLife[i] += 0.008;
+        riftLife[i] += 0.007;
 
         const dist = Math.sqrt(
           riftPos[i * 3] ** 2 +
@@ -211,12 +226,13 @@ export function createParticles(scene) {
           riftPos[i * 3 + 2] ** 2
         );
 
-        if (riftLife[i] > 1 || dist > 4) {
+        if (riftLife[i] > 1 || dist > 3.5) {
           resetRiftParticle(i);
         }
       }
 
       riftGeo.attributes.position.needsUpdate = true;
+      riftGeo.attributes.life.needsUpdate = true;
     },
   };
 }

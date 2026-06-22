@@ -40,6 +40,18 @@ A full-viewport hero that communicates *"this developer operates at a different 
 - [x] Visual polish: stronger nebula, bloom, rift glow, outer ring
 - [x] Crosshair cursor near rift center
 
+## Phase 3 — Premium Rift 3D (Completed)
+
+- [x] Multi-layer portal geometry: shell, facets, tunnel, hex frame, void core
+- [x] Advanced GLSL: FBM + ridged noise, hex-fold displacement, energy veins
+- [x] Chromatic fresnel edges, scan-line pulses, mouse-reactive intensity
+- [x] Three energy rings with animated dash shaders
+- [x] Hex filament LineSegments with phase pulse shader
+- [x] 18 orbital crystal shards (instanced mesh)
+- [x] Dual point lights (rim + core) with mouse modulation
+- [x] 1400 rift particles emitted from hex edges, parented to rift group
+- [x] Modular `src/webgl/rift/` shaders + geometry architecture
+
 ---
 
 ## 2. Tech Stack
@@ -403,4 +415,4 @@ createResizeHandler({ camera, renderer, composer }) → { destroy }
 
 ---
 
-*Last updated: 2026-06-22 — Phase 2 complete*
+*Last updated: 2026-06-22 — Phase 3 complete*
