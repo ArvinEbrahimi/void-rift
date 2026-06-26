@@ -3,7 +3,7 @@
 @import './style/components/rail.css';
 @import './style/components/telemetry.css';
 @import './style/components/status.css';
-@import './style/components/panel.css';
+@import './style/sections/work.css';
 
 *,
 *::before,
@@ -92,6 +92,25 @@ body {
   font-weight: 700;
   letter-spacing: 0.15em;
   color: var(--rift-glow);
+  text-decoration: none;
+  display: inline-flex;
+}
+
+.overlay__logo-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid rgba(168, 85, 247, 0.45);
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  font-size: 0.75rem;
+  transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+}
+
+.overlay__logo:hover .overlay__logo-mark {
+  border-color: var(--rift-glow);
+  box-shadow: 0 0 16px rgba(168, 85, 247, 0.35);
 }
 
 .overlay__links {
@@ -194,6 +213,31 @@ body {
   letter-spacing: 0.08em;
   color: var(--rift-glow);
   min-height: 1.5em;
+}
+
+.overlay__ctas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.overlay__cta--primary {
+  background: rgba(110, 63, 255, 0.15);
+  border-color: rgba(168, 85, 247, 0.55);
+}
+
+.overlay__cta--ghost {
+  background: transparent;
+  border-color: rgba(110, 63, 255, 0.25);
+  color: var(--text-dim);
+}
+
+.overlay__cta--ghost:hover {
+  color: var(--rift-glow);
+  border-color: var(--rift-glow);
 }
 
 .overlay__cursor-blink {
@@ -398,58 +442,7 @@ body {
   gap: 1.5rem;
 }
 
-.project-card {
-  background: rgba(7, 7, 26, 0.65);
-  border: 1px solid rgba(110, 63, 255, 0.2);
-  padding: 1.75rem;
-  backdrop-filter: blur(12px);
-  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
-}
-
-.project-card:hover {
-  border-color: rgba(168, 85, 247, 0.5);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(110, 63, 255, 0.15);
-}
-
-.project-card__index {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: var(--rift-glow);
-  letter-spacing: 0.15em;
-}
-
-.project-card__name {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin: 0.75rem 0;
-}
-
-.project-card__desc {
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: var(--text-dim);
-  margin-bottom: 1.25rem;
-}
-
-.project-card__tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  list-style: none;
-}
-
-.project-card__tags li {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 0.35rem 0.65rem;
-  border: 1px solid rgba(110, 63, 255, 0.3);
-  color: var(--text-dim);
-}
+/* project-card styles superseded by bento grid in work.css */
 
 .section__stats {
   list-style: none;
@@ -477,6 +470,8 @@ body {
 
 .section--work {
   background: linear-gradient(180deg, transparent 0%, rgba(7, 7, 26, 0.4) 20%, rgba(7, 7, 26, 0.85) 100%);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
 }
 
 .section--about {

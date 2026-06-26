@@ -1,0 +1,80 @@
+export const PROJECT_CATEGORIES = [
+  { id: 'all', label: 'All' },
+  { id: 'webgl', label: 'WebGL' },
+  { id: 'fullstack', label: 'Full-Stack' },
+  { id: 'motion', label: 'Motion' },
+];
+
+export const PROJECTS = [
+  {
+    id: 'void-rift',
+    featured: true,
+    index: '01',
+    name: 'Void Rift',
+    year: '2025',
+    role: 'Lead Creative Dev',
+    categories: ['webgl', 'motion'],
+    desc: 'Cinematic WebGL hero — procedural nebula, selective bloom, 9K+ particles, and tiered quality pipeline.',
+    detail:
+      'A from-scratch Three.js experience with custom GLSL shaders, selective post-processing bloom, PMREM lighting, and a quality-tier system that scales from mobile to desktop discrete GPU.',
+    tags: ['Three.js', 'GLSL', 'GSAP', 'Post-FX'],
+    link: 'https://github.com/ArvinEbrahimi/void-rift',
+    visual: 'rift',
+  },
+  {
+    id: 'saas-platform',
+    index: '02',
+    name: 'SaaS Platform',
+    year: '2024',
+    role: 'Full-Stack Engineer',
+    categories: ['fullstack'],
+    desc: 'Multi-tenant product with Next.js dashboards, Django REST APIs, and real-time analytics.',
+    detail:
+      'End-to-end SaaS architecture: role-based access, webhook integrations, background jobs, and a component library shared across admin and client surfaces.',
+    tags: ['Next.js', 'Django', 'PostgreSQL'],
+    link: 'https://github.com/ArvinEbrahimi',
+    visual: 'grid',
+  },
+  {
+    id: 'motion-systems',
+    index: '03',
+    name: 'Motion Systems',
+    year: '2024',
+    role: 'Creative Frontend',
+    categories: ['motion', 'webgl'],
+    desc: 'Scroll choreography, timeline orchestration, and micro-interactions for brand launches.',
+    detail:
+      'GSAP-driven narrative sites with scroll-linked WebGL layers, reduced-motion fallbacks, and performance budgets for campaign traffic spikes.',
+    tags: ['GSAP', 'WebGL', 'UX'],
+    link: 'https://github.com/ArvinEbrahimi',
+    visual: 'wave',
+  },
+  {
+    id: 'api-platform',
+    index: '04',
+    name: 'API Platform',
+    year: '2023',
+    role: 'Backend Lead',
+    categories: ['fullstack'],
+    desc: 'Django REST platform with OAuth2, rate limiting, and OpenAPI documentation.',
+    detail:
+      'Designed versioned REST APIs, caching strategy, and observability hooks for a B2B integration layer serving thousands of daily requests.',
+    tags: ['Django', 'DRF', 'Redis'],
+    link: 'https://github.com/ArvinEbrahimi',
+    visual: 'nodes',
+  },
+  {
+    id: 'brand-experience',
+    index: '05',
+    name: 'Brand Experience',
+    year: '2023',
+    role: 'Creative Dev',
+    categories: ['motion'],
+    desc: 'Immersive landing experiences with shader accents and editorial layout systems.',
+    detail:
+      'Campaign sites combining editorial typography, WebGL accents, and conversion-focused UX — shipped on tight deadlines without sacrificing craft.',
+    tags: ['WebGL', 'CSS', 'GSAP'],
+    link: 'https://github.com/ArvinEbrahimi',
+    visual: 'glow',
+  },
+];

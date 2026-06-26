@@ -88,7 +88,7 @@ The site is a **mission control interface** for a creative engineer. The WebGL r
 - [x] **U-SHELL-01** Fixed left **progress rail** — vertical line, fill on scroll, section dots
 - [x] **U-SHELL-02** Top **telemetry bar** — FPS, time Tehran, scroll %, `v1.0.0`
 - [x] **U-SHELL-03** Bottom **status bar** — coords, "SYS.ONLINE", GitHub link
-- [ ] **U-SHELL-04** Persistent nav redesign — logo monogram, magnetic links, active section
+- [x] **U-SHELL-04** Persistent nav redesign — logo monogram, magnetic links, active section
 - [ ] **U-SHELL-05** `ScrollTrigger` integration (GSAP plugin) — register once in `scroll-animations.js`
 - [ ] **U-SHELL-06** Smooth scroll: Lenis or custom spring scroll (match WebGL scroll progress)
 - [ ] **U-SHELL-07** Page transition: hero → content crossfade with rift position sync
@@ -97,14 +97,14 @@ The site is a **mission control interface** for a creative engineer. The WebGL r
 
 - [ ] **U-HERO-01** Split layout option: name left-aligned, rift visual center-right (asymmetric)
 - [ ] **U-HERO-02** Role line: animated word cycle with 3D flip or scramble decode effect
-- [ ] **U-HERO-03** CTA pair: `View Work ↓` primary + `GitHub` ghost — not single button
+- [x] **U-HERO-03** CTA pair: `View Work ↓` primary + `GitHub` ghost — not single button
 - [ ] **U-HERO-04** Scroll indicator: custom SVG chevron with progress ring
 - [ ] **U-HERO-05** Easter egg: Konami or typed `void` triggers rift pulse
 - [ ] **U-HERO-06** Accessibility: skip-to-content link, focus trap off, `aria-live` on typewriter
 
 ### 3.3 Section 01 — Work (`ui/sections/work/`)
 
-- [ ] **U-WORK-01** **Bento grid** layout:
+- [x] **U-WORK-01** **Bento grid** layout:
   ```
   ┌──────────────┬─────┐
   │   Featured   │  2  │
@@ -114,14 +114,14 @@ The site is a **mission control interface** for a creative engineer. The WebGL r
   │  4   │      5      │
   └──────┴─────────────┘
   ```
-- [ ] **U-WORK-02** Each project card:
+- [x] **U-WORK-02** Each project card:
   - Hover: video loop or WebGL thumbnail canvas
   - Tags as monospace chips
   - Year + role (e.g. "2025 · Lead Frontend")
   - Arrow link with magnetic pull
-- [ ] **U-WORK-03** Featured project (Void Rift): embedded mini stats — shaders, particles, fps
-- [ ] **U-WORK-04** Filter chips: All / WebGL / Full-Stack / Motion — CSS + JS filter
-- [ ] **U-WORK-05** Case study modal or slide-over panel on click (no new page yet)
+- [x] **U-WORK-03** Featured project (Void Rift): embedded mini stats — shaders, particles, fps
+- [x] **U-WORK-04** Filter chips: All / WebGL / Full-Stack / Motion — CSS + JS filter
+- [x] **U-WORK-05** Case study modal or slide-over panel on click (no new page yet)
 
 ### 3.4 Section 02 — Stack (`ui/sections/stack/`)
 

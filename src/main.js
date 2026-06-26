@@ -11,6 +11,7 @@ import { createBloomTargetList } from './webgl/post/bloom-selective.js';
 import { createMouseParallax } from './webgl/mouse-parallax.js';
 import { createOverlay } from './ui/overlay.js';
 import { createSections } from './ui/sections.js';
+import { initMagnetic } from './ui/components/magnetic.js';
 import { initSmoothNav } from './ui/nav.js';
 import { playIntro } from './ui/intro-anim.js';
 import { initCursor } from './ui/cursor.js';
@@ -49,8 +50,13 @@ particles.setFogDensity(fogDensity * 0.012, fogDensity * 0.0001);
 riftParticles.setFogDensity(fogDensity * 0.0008);
 
 const overlay = createOverlay();
-createSections();
+const { workUi } = createSections({
+  starCount: tierConfig.starCount,
+  dustCount: tierConfig.dustCount,
+  riftCount: tierConfig.riftCount,
+});
 initCursor();
+initMagnetic(document.querySelectorAll('.magnetic-target'));
 
 const loadingBar = document.createElement('div');
 loadingBar.className = 'loading-bar';
@@ -131,6 +137,7 @@ createRAF([
     riftParticles.setScrollVelocity(scrollVelocity);
     riftParticles.update(time, rift.uniforms.uReveal.value);
     shell.telemetry.tickFrame();
+    workUi.updateLiveStats(() => shell.telemetry.getFps());
     shell.setCursorCoords(
       (target.x + 1) * 0.5 * window.innerWidth,
       (1 - target.y) * 0.5 * window.innerHeight
