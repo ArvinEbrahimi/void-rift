@@ -187,6 +187,32 @@ export function createPortalShellGeometry() {
   return geo;
 }
 
+export function createPortalShellGeometryLOD() {
+  return new THREE.IcosahedronGeometry(1.22, 3);
+}
+
+export function createTunnelGeometryLOD() {
+  const profile = [];
+  const segments = 12;
+
+  for (let i = 0; i <= segments; i++) {
+    const t = i / segments;
+    const y = (t - 0.5) * 1.85;
+    const flare = 1.0 + Math.sin(t * Math.PI) * 0.12;
+    const radius = THREE.MathUtils.lerp(0.98, 0.22, Math.pow(t, 1.35)) * flare;
+    profile.push(new THREE.Vector2(radius, y));
+  }
+
+  const geo = new THREE.LatheGeometry(profile, 24);
+  geo.rotateX(Math.PI / 2);
+  return geo;
+}
+
+export function createRiftImpostorGeometry() {
+  const geo = new THREE.IcosahedronGeometry(1.05, 2);
+  return geo;
+}
+
 export function createFacetGeometry() {
   return new THREE.IcosahedronGeometry(1.02, 2);
 }

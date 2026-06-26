@@ -46,6 +46,10 @@ export function createTelemetry() {
       <strong data-tier>${window.__VOID_TIER || 'B'}</strong>
     </div>
     <div class="void-telemetry__item">
+      <span>LOD</span>
+      <strong data-lod>near</strong>
+    </div>
+    <div class="void-telemetry__item">
       <span>BUILD</span>
       <strong>${VERSION}</strong>
     </div>
@@ -55,6 +59,7 @@ export function createTelemetry() {
   const fpsEl = root.querySelector('[data-fps]');
   const timeEl = root.querySelector('[data-time]');
   const scrollEl = root.querySelector('[data-scroll]');
+  const lodEl = root.querySelector('[data-lod]');
 
   function tickClock() {
     timeEl.textContent = formatTehranTime();
@@ -73,7 +78,13 @@ export function createTelemetry() {
         frameCount = 0;
         lastSample = now;
         fpsEl.textContent = String(fps);
+        if (lodEl && window.__VOID_LOD) {
+          lodEl.textContent = window.__VOID_LOD;
+        }
       }
+    },
+    setLod(level) {
+      if (lodEl) lodEl.textContent = level;
     },
     setScrollPercent(pct) {
       scrollPct = pct;

@@ -26,6 +26,7 @@ import {
   createAccretionDiscGeometry,
   createEnergyRibbons,
 } from './rift/geometry.js';
+import { createRiftLodController } from './rift/lod.js';
 
 function createEnergyRing(group, radius, tube, color, tiltX, tiltZ, sharedUniforms) {
   const geo = new THREE.TorusGeometry(radius, tube, 16, 128);
@@ -60,6 +61,7 @@ export function createRift(scene, tierConfig = { shaderQuality: 1.0 }) {
     uScroll: { value: 0 },
     uHexMorph: { value: 0 },
     uQuality: { value: tierConfig.shaderQuality ?? 1.0 },
+    uLod: { value: 0 },
     uKeyLightPos: { value: new THREE.Vector3(-2.8, 3.2, 4.5) },
     uRimLightPos: { value: new THREE.Vector3(2.5, 0, 2.8) },
   };
@@ -171,7 +173,22 @@ export function createRift(scene, tierConfig = { shaderQuality: 1.0 }) {
   group.scale.setScalar(0.01);
 
   let scrollProgress = 0;
+  let lodController = null;
   const shardDummy = new THREE.Object3D();
+
+  const parts = {
+    group,
+    shell,
+    facets,
+    tunnel,
+    filaments,
+    accretion,
+    ribbons,
+    shards,
+    ringA,
+    ringB,
+    ringC,
+  };
 
   return {
     group,
@@ -179,6 +196,9 @@ export function createRift(scene, tierConfig = { shaderQuality: 1.0 }) {
     hexFrame,
     hexFrameMat,
     uniforms,
+    bindCamera(camera) {
+      lodController = createRiftLodController({ camera, parts, uniforms, tierConfig });
+    },
     applyEnvMap(envMap) {
       hexFrameMat.envMap = envMap;
       hexFrameMat.envMapIntensity = 0.85;
@@ -218,6 +238,10 @@ export function createRift(scene, tierConfig = { shaderQuality: 1.0 }) {
       group.position.y = scrollEased * 1.2;
       uniforms.uScroll.value = scrollEased;
 
+      if (lodController) {
+        lodController.update(scrollProgress);
+      }
+
       shell.rotation.y += 0.0016;
       shell.rotation.z += 0.0008;
       facets.rotation.y -= 0.0022;
@@ -235,7 +259,8 @@ export function createRift(scene, tierConfig = { shaderQuality: 1.0 }) {
         ribbon.rotation.y += 0.001 * (i + 1);
       });
 
-      shards.children.forEach((instanced) => {
+      if (shards.visible) {
+        shards.children.forEach((instanced) => {
         const orbits = instanced.userData.orbits;
         const speeds = instanced.userData.speeds;
         for (let i = 0; i < instanced.count; i++) {
@@ -251,7 +276,11 @@ export function createRift(scene, tierConfig = { shaderQuality: 1.0 }) {
           instanced.setMatrixAt(i, shardDummy.matrix);
         }
         instanced.instanceMatrix.needsUpdate = true;
-      });
+        });
+      }
+    },
+    getLodLevel() {
+      return lodController?.getLevelName() ?? 'near';
     },
   };
 }

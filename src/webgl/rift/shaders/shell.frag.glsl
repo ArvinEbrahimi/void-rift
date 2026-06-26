@@ -1,6 +1,7 @@
 uniform float uTime;
 uniform float uReveal;
 uniform float uMouse;
+uniform float uLod;
 uniform vec3 uKeyLightPos;
 uniform vec3 uRimLightPos;
 varying vec3 vNormal;
@@ -17,9 +18,9 @@ void main() {
   float pulse = 0.78 + 0.22 * sin(uTime * 1.35 + vDisplace * 4.0);
 
   float veins = ridged(vWorldPos * 4.5 + vec3(uTime * 0.35, -uTime * 0.2, uTime * 0.15));
-  veins = aastep(0.55, veins);
+  veins = uLod < 1.5 ? aastep(0.55, veins) : 0.0;
 
-  float scan = sin((vWorldPos.y + vWorldPos.x) * 12.0 - uTime * 2.5) * 0.5 + 0.5;
+  float scan = uLod < 1.0 ? sin((vWorldPos.y + vWorldPos.x) * 12.0 - uTime * 2.5) * 0.5 + 0.5 : 0.0;
   scan = pow(scan, 8.0) * 0.35;
 
   vec3 N = normalize(vNormal);

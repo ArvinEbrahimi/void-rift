@@ -35,6 +35,7 @@ const tierConfig = getTierConfig(tier);
 const { scene, camera, renderer } = createScene();
 const cameraRig = createCameraRig(camera);
 const rift = createRift(scene, tierConfig);
+rift.bindCamera(camera);
 const lightingRig = createLightingRig(scene, rift.group);
 rift.bindLighting(lightingRig.uniforms);
 
@@ -192,6 +193,7 @@ createRAF([
     riftParticles.setScrollVelocity(scrollVelocity);
     riftParticles.update(time, rift.uniforms.uReveal.value);
     shell.telemetry.tickFrame();
+    shell.telemetry.setLod(rift.getLodLevel());
     workUi.updateLiveStats(() => shell.telemetry.getFps());
     shell.setCursorCoords(
       (target.x + 1) * 0.5 * window.innerWidth,

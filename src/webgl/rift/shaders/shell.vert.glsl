@@ -4,6 +4,7 @@ uniform float uReveal;
 uniform float uScroll;
 uniform float uHexMorph;
 uniform float uQuality;
+uniform float uLod;
 varying vec3 vNormal;
 varying vec3 vWorldPos;
 varying vec3 vViewDir;
@@ -53,11 +54,13 @@ void main() {
   vec3 n = normalize(normal);
   float hex = hexFold(pos);
   float displace = shellDisplace(pos, n, hex);
+  float lodFade = 1.0 - clamp(uLod - 0.5, 0.0, 1.0) * 0.65;
+  displace *= lodFade;
 
   vDisplace = displace;
   vHex = hex;
 
-  float eps = 0.018;
+  float eps = 0.018 * mix(1.0, 2.4, clamp(uLod, 0.0, 2.0) * 0.5);
   vec3 tangent = normalize(cross(n, vec3(0.0, 1.0, 0.001)));
   vec3 bitangent = normalize(cross(n, tangent));
   float dC = displace;

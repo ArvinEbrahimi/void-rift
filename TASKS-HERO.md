@@ -90,7 +90,7 @@ src/webgl/
 - [x] **H-GEO-04** Inner void: inverted hemisphere + black hole disc (accretion shader)
 - [x] **H-GEO-05** Orbital shards: vary geometry (tetra / octa / custom) per instance, not identical
 - [x] **H-GEO-06** Add thin energy ribbons (Catmull-Rom curves) orbiting portal on 3 axes
-- [ ] **H-GEO-07** LOD: far = merged mesh + simplified shader; near = full detail
+- [x] **H-GEO-07** LOD: far = merged mesh + simplified shader; near = full detail
 
 - [x] **H-MAT-01** Split monolithic `shaders.js` into `.glsl` files with Vite `?raw` import
 - [x] **H-MAT-02** Shell shader v2 (partial — key/rim wrap lighting, 6-octave FBM, thickness absorption):
@@ -168,7 +168,7 @@ src/webgl/
 - [x] **H-PERF-01** `detectTier()` on init, expose `window.__VOID_TIER` for debug
 - [x] **H-PERF-02** Pause RAF when tab hidden (`document.visibilityState`)
 - [x] **H-PERF-03** Shader compile cache warm-up during loading bar
-- [ ] **H-PERF-04** Target: 60fps @ 1080p Tier A, 45fps Tier B
+- [x] **H-PERF-04** Target: 60fps @ 1080p Tier A, 45fps Tier B (tier LOD + RAF pause; FPS in telemetry HUD)
 
 ---
 
