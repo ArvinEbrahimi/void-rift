@@ -135,17 +135,17 @@ The site is a **mission control interface** for a creative engineer. The WebGL r
 
 ### 3.5 Section 03 — Lab (`ui/sections/lab/`)
 
-- [ ] **U-LAB-01** Experiments grid — shader toys, motion studies, WIP
-- [ ] **U-LAB-02** Each item: GIF preview + "View source" GitHub link
-- [ ] **U-LAB-03** One live embed: mini canvas demo (e.g. noise visualizer) — proves JS skill
-- [ ] **U-LAB-04** "Building next" teaser card with pulsing border
+- [x] **U-LAB-01** Experiments grid — shader toys, motion studies, WIP
+- [x] **U-LAB-02** Each item: GIF preview + "View source" GitHub link
+- [x] **U-LAB-03** One live embed: mini canvas demo (e.g. noise visualizer) — proves JS skill
+- [x] **U-LAB-04** "Building next" teaser card with pulsing border
 
 ### 3.6 Section 04 — Process (`ui/sections/process/`)
 
-- [ ] **U-PROC-01** Horizontal timeline: Discover → Design → Build → Ship → Iterate
-- [ ] **U-PROC-02** Each step: icon (custom SVG), title, 2-line description
-- [ ] **U-PROC-03** Scroll-driven line draw animation (SVG `stroke-dashoffset`)
-- [ ] **U-PROC-04** Quote block: engineering philosophy — 1 sentence, large Syne type
+- [x] **U-PROC-01** Horizontal timeline: Discover → Design → Build → Ship → Iterate
+- [x] **U-PROC-02** Each step: icon (custom SVG), title, 2-line description
+- [x] **U-PROC-03** Scroll-driven line draw animation (SVG `stroke-dashoffset`)
+- [x] **U-PROC-04** Quote block: engineering philosophy — 1 sentence, large Syne type
 
 ### 3.7 Section 05 — About (`ui/sections/about/`)
 

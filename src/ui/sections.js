@@ -1,6 +1,8 @@
 import { createWorkSectionHTML } from './sections/work/work-section.js';
 import { createWorkModal, initWorkInteractions } from './sections/work/work-interactions.js';
 import { createStackSectionHTML, initStackConstellation } from './sections/stack/stack-section.js';
+import { createLabSectionHTML, initLabSection } from './sections/lab/lab-section.js';
+import { createProcessSectionHTML, initProcessTimeline } from './sections/process/process-section.js';
 
 export function createSections(tierStats = {}) {
   const main = document.createElement('main');
@@ -9,11 +11,13 @@ export function createSections(tierStats = {}) {
     <div class="hero-spacer" aria-hidden="true"></div>
     ${createWorkSectionHTML()}
     ${createStackSectionHTML()}
+    ${createLabSectionHTML()}
+    ${createProcessSectionHTML()}
 
     <section id="about" class="section section--about">
       <div class="section__inner section__inner--split">
         <div>
-          <p class="section__label">// 03 — About</p>
+          <p class="section__label">// 05 — About</p>
           <h2 class="section__title">Building at the edge of code &amp; craft</h2>
         </div>
         <div class="section__body">
@@ -30,7 +34,7 @@ export function createSections(tierStats = {}) {
 
     <section id="contact" class="section section--contact">
       <div class="section__inner">
-        <p class="section__label">// 04 — Contact</p>
+        <p class="section__label">// 06 — Contact</p>
         <h2 class="section__title">Let's build something memorable</h2>
         <p class="section__lead">Open to freelance, collaborations, and full-time roles.</p>
         <div class="contact-links">
@@ -55,9 +59,13 @@ export function createSections(tierStats = {}) {
 
   const workSection = main.querySelector('#work');
   const stackSection = main.querySelector('#stack');
+  const labSection = main.querySelector('#lab');
+  const processSection = main.querySelector('#process');
   const modal = createWorkModal();
   const workUi = initWorkInteractions(workSection, modal, { stats: tierStats });
   initStackConstellation(stackSection);
+  const labUi = initLabSection(labSection);
+  initProcessTimeline(processSection);
 
   const observer = new IntersectionObserver(
     (entries) => {
@@ -70,5 +78,5 @@ export function createSections(tierStats = {}) {
 
   main.querySelectorAll('.section').forEach((section) => observer.observe(section));
 
-  return { main, workUi, modal };
+  return { main, workUi, labUi, modal };
 }

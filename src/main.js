@@ -96,7 +96,7 @@ window.addEventListener('load', () => {
   initSmoothNav();
 });
 
-const sections = ['work', 'stack', 'about', 'contact'];
+const sections = ['work', 'stack', 'lab', 'about', 'contact'];
 const navLinks = document.querySelectorAll('.overlay__links a');
 
 function updateActiveNav() {

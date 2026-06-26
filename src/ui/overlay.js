@@ -9,6 +9,7 @@ export function createOverlay() {
       <ul class="overlay__links">
         <li><a href="#work" class="magnetic-target" data-cursor="expand">Work</a></li>
         <li><a href="#stack" class="magnetic-target" data-cursor="expand">Stack</a></li>
+        <li><a href="#lab" class="magnetic-target" data-cursor="expand">Lab</a></li>
         <li><a href="#about" class="magnetic-target" data-cursor="expand">About</a></li>
         <li><a href="#contact" class="magnetic-target" data-cursor="expand">Contact</a></li>
       </ul>

@@ -4,6 +4,8 @@ const RAIL_SECTIONS = [
   { id: 'hero', label: 'Void', href: '#' },
   { id: 'work', label: 'Work', href: '#work' },
   { id: 'stack', label: 'Stack', href: '#stack' },
+  { id: 'lab', label: 'Lab', href: '#lab' },
+  { id: 'process', label: 'Process', href: '#process' },
   { id: 'about', label: 'About', href: '#about' },
   { id: 'contact', label: 'Contact', href: '#contact' },
 ];
@@ -71,6 +73,8 @@ export function createShell() {
     let active = 'hero';
     if (probe >= document.getElementById('contact')?.offsetTop) active = 'contact';
     else if (probe >= document.getElementById('about')?.offsetTop) active = 'about';
+    else if (probe >= document.getElementById('process')?.offsetTop) active = 'process';
+    else if (probe >= document.getElementById('lab')?.offsetTop) active = 'lab';
     else if (probe >= document.getElementById('stack')?.offsetTop) active = 'stack';
     else if (probe >= document.getElementById('work')?.offsetTop) active = 'work';
     setActiveSection(active);
