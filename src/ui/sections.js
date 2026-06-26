@@ -1,5 +1,6 @@
 import { createWorkSectionHTML } from './sections/work/work-section.js';
 import { createWorkModal, initWorkInteractions } from './sections/work/work-interactions.js';
+import { createStackSectionHTML, initStackConstellation } from './sections/stack/stack-section.js';
 
 export function createSections(tierStats = {}) {
   const main = document.createElement('main');
@@ -7,11 +8,12 @@ export function createSections(tierStats = {}) {
   main.innerHTML = `
     <div class="hero-spacer" aria-hidden="true"></div>
     ${createWorkSectionHTML()}
+    ${createStackSectionHTML()}
 
     <section id="about" class="section section--about">
       <div class="section__inner section__inner--split">
         <div>
-          <p class="section__label">// 02 — About</p>
+          <p class="section__label">// 03 — About</p>
           <h2 class="section__title">Building at the edge of code &amp; craft</h2>
         </div>
         <div class="section__body">
@@ -28,7 +30,7 @@ export function createSections(tierStats = {}) {
 
     <section id="contact" class="section section--contact">
       <div class="section__inner">
-        <p class="section__label">// 03 — Contact</p>
+        <p class="section__label">// 04 — Contact</p>
         <h2 class="section__title">Let's build something memorable</h2>
         <p class="section__lead">Open to freelance, collaborations, and full-time roles.</p>
         <div class="contact-links">
@@ -52,8 +54,10 @@ export function createSections(tierStats = {}) {
   document.body.appendChild(main);
 
   const workSection = main.querySelector('#work');
+  const stackSection = main.querySelector('#stack');
   const modal = createWorkModal();
   const workUi = initWorkInteractions(workSection, modal, { stats: tierStats });
+  initStackConstellation(stackSection);
 
   const observer = new IntersectionObserver(
     (entries) => {

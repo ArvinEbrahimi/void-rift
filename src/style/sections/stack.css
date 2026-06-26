@@ -1,0 +1,314 @@
+.stack__context {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text-dim);
+  max-width: 52ch;
+  margin-bottom: 2rem;
+}
+
+.stack__layout {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+}
+
+.stack__constellation-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.constellation {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.constellation__glow {
+  position: absolute;
+  inset: 18%;
+  background: radial-gradient(circle, rgba(110, 63, 255, 0.22), transparent 68%);
+  pointer-events: none;
+}
+
+.constellation__core {
+  position: absolute;
+  inset: 28%;
+  z-index: 2;
+}
+
+.constellation__ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--ring-size);
+  height: var(--ring-size);
+  margin-left: calc(var(--ring-size) / -2);
+  margin-top: calc(var(--ring-size) / -2);
+  border: 1px solid rgba(110, 63, 255, 0.12);
+  border-radius: 50%;
+  animation: constellation-spin var(--spin-duration) linear infinite;
+  pointer-events: none;
+}
+
+.constellation__ring--inner {
+  --ring-size: 62%;
+  --spin-duration: 48s;
+}
+
+.constellation__ring--outer {
+  --ring-size: 88%;
+  --spin-duration: 72s;
+  animation-direction: reverse;
+}
+
+.constellation__ring .stack-node--sat {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: 0;
+  transform:
+    rotate(var(--angle))
+    translateY(calc(var(--ring-size) / -2))
+    rotate(calc(-1 * var(--angle)));
+  animation: constellation-counter var(--spin-duration) linear infinite;
+  pointer-events: all;
+}
+
+.constellation__ring--outer .stack-node--sat {
+  animation-direction: reverse;
+}
+
+@keyframes constellation-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes constellation-counter {
+  to {
+    transform:
+      rotate(calc(var(--angle) - 360deg))
+      translateY(calc(var(--ring-size) / -2))
+      rotate(calc(360deg - var(--angle)));
+  }
+}
+
+.stack-node {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  padding: 0.45rem 0.65rem;
+  cursor: pointer;
+  transition:
+    color var(--dur-fast),
+    border-color var(--dur-fast),
+    box-shadow var(--dur-fast),
+    transform var(--dur-fast);
+  backdrop-filter: blur(8px);
+}
+
+.stack-node--core {
+  position: absolute;
+  z-index: 3;
+}
+
+.constellation__core-node--a {
+  left: 50%;
+  top: 8%;
+  transform: translate(-50%, 0);
+}
+
+.constellation__core-node--b {
+  left: 8%;
+  bottom: 12%;
+}
+
+.constellation__core-node--c {
+  right: 8%;
+  bottom: 12%;
+}
+
+.stack-node--core .stack-node__label {
+  color: var(--rift-glow);
+}
+
+.stack-node:hover,
+.stack-node:focus-visible,
+.stack-node.is-active {
+  color: var(--text-primary);
+  border-color: rgba(168, 85, 247, 0.65);
+  box-shadow: 0 0 20px rgba(110, 63, 255, 0.25);
+  outline: none;
+}
+
+.stack-node--core:hover,
+.stack-node--core.is-active {
+  transform: translate(-50%, 0) scale(1.05);
+}
+
+.constellation__core-node--b:hover,
+.constellation__core-node--b.is-active,
+.constellation__core-node--c:hover,
+.constellation__core-node--c.is-active {
+  transform: scale(1.05);
+}
+
+.stack-tooltip {
+  padding: 1rem 1.15rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--panel-radius);
+  min-height: 88px;
+}
+
+.stack-tooltip__label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rift-glow);
+  margin-bottom: 0.4rem;
+}
+
+.stack-tooltip__desc {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+
+.stack__panels {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.stack-code__pre {
+  margin: 0;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.65;
+  color: var(--text-dim);
+}
+
+.stack-code__pre code {
+  display: block;
+  white-space: pre;
+}
+
+.tok-kw {
+  color: #c4a0ff;
+}
+
+.tok-type {
+  color: #e8e4f0;
+}
+
+.tok-fn {
+  color: #a855f7;
+}
+
+.tok-str {
+  color: #7dd3a8;
+}
+
+.tok-bool {
+  color: #f0ab6b;
+}
+
+.stack-arch__svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.stack-arch__box {
+  fill: rgba(7, 7, 26, 0.8);
+  stroke: rgba(110, 63, 255, 0.35);
+  stroke-width: 1;
+}
+
+.stack-arch__box--cache {
+  stroke-dasharray: 4 3;
+}
+
+.stack-arch__text {
+  fill: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-anchor: middle;
+  letter-spacing: 0.08em;
+}
+
+.stack-arch__sub {
+  fill: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  text-anchor: middle;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.stack-arch__flow {
+  stroke: url(#arch-flow);
+  stroke-width: 2;
+  stroke-dasharray: 6 8;
+  stroke-dashoffset: 48;
+  opacity: 0.5;
+}
+
+.stack-arch__svg.is-animated .stack-arch__flow {
+  animation: arch-flow 2.4s linear infinite;
+  opacity: 1;
+}
+
+.stack-arch__flow--down {
+  stroke-dasharray: 4 6;
+}
+
+@keyframes arch-flow {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.section--stack {
+  background: rgba(3, 3, 10, 0.94);
+  border-top: 1px solid rgba(110, 63, 255, 0.15);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
+}
+
+@media (max-width: 900px) {
+  .stack__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .constellation {
+    max-width: 360px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .constellation__ring,
+  .constellation__ring .stack-node {
+    animation: none;
+  }
+
+  .stack-arch__svg.is-animated .stack-arch__flow {
+    animation: none;
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}

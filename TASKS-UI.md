@@ -125,13 +125,13 @@ The site is a **mission control interface** for a creative engineer. The WebGL r
 
 ### 3.4 Section 02 — Stack (`ui/sections/stack/`)
 
-- [ ] **U-STACK-01** **Tech constellation** — orbiting nodes (CSS or light Canvas 2D):
+- [x] **U-STACK-01** **Tech constellation** — orbiting nodes (CSS or light Canvas 2D):
   - Core: Three.js, React, Django
   - Satellites: GSAP, PostgreSQL, Docker, etc.
   - Hover node → expand description tooltip
-- [ ] **U-STACK-02** **Proficiency as context**, not bars — "Production experience since 20XX"
-- [ ] **U-STACK-03** Code snippet panel — real Django view or React hook example (Prism.js highlight)
-- [ ] **U-STACK-04** Architecture diagram — SVG animated data flow (client → API → DB)
+- [x] **U-STACK-02** **Proficiency as context**, not bars — "Production experience since 20XX"
+- [x] **U-STACK-03** Code snippet panel — real Django view or React hook example (Prism.js highlight)
+- [x] **U-STACK-04** Architecture diagram — SVG animated data flow (client → API → DB)
 
 ### 3.5 Section 03 — Lab (`ui/sections/lab/`)
 
