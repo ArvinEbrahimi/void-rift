@@ -1,0 +1,92 @@
+.void-rail {
+  position: fixed;
+  left: clamp(0.75rem, 2vw, 1.5rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: var(--hud-z);
+  display: flex;
+  align-items: stretch;
+  gap: 0.65rem;
+  pointer-events: none;
+}
+
+.void-rail__track {
+  width: var(--rail-width);
+  height: min(42vh, 320px);
+  background: rgba(110, 63, 255, 0.12);
+  border-radius: 1px;
+  position: relative;
+  overflow: hidden;
+}
+
+.void-rail__fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: calc(var(--page-scroll, 0) * 100%);
+  background: linear-gradient(to top, var(--rift), var(--rift-glow));
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.45);
+  transition: height 0.08s linear;
+}
+
+.void-rail__dots {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: min(42vh, 320px);
+  padding: 0;
+}
+
+.void-rail__dot {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  pointer-events: all;
+}
+
+.void-rail__marker {
+  width: 6px;
+  height: 6px;
+  border: 1px solid rgba(110, 63, 255, 0.45);
+  background: transparent;
+  transition:
+    background var(--dur-fast),
+    border-color var(--dur-fast),
+    box-shadow var(--dur-fast);
+}
+
+.void-rail__dot.is-active .void-rail__marker,
+.void-rail__dot:hover .void-rail__marker {
+  background: var(--rift-glow);
+  border-color: var(--rift-glow);
+  box-shadow: 0 0 8px rgba(168, 85, 247, 0.6);
+}
+
+.void-rail__label {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  color: var(--text-dim);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition:
+    opacity var(--dur-fast),
+    transform var(--dur-fast);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.void-rail__dot:hover .void-rail__label,
+.void-rail__dot.is-active .void-rail__label {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--rift-glow);
+}
+
+@media (max-width: 768px) {
+  .void-rail {
+    display: none;
+  }
+}

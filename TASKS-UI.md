@@ -85,9 +85,9 @@ The site is a **mission control interface** for a creative engineer. The WebGL r
 
 ### 3.1 Global Shell (`ui/shell/`)
 
-- [ ] **U-SHELL-01** Fixed left **progress rail** — vertical line, fill on scroll, section dots
-- [ ] **U-SHELL-02** Top **telemetry bar** — FPS, time Tehran, scroll %, `v1.0.0`
-- [ ] **U-SHELL-03** Bottom **status bar** — coords, "SYS.ONLINE", GitHub link
+- [x] **U-SHELL-01** Fixed left **progress rail** — vertical line, fill on scroll, section dots
+- [x] **U-SHELL-02** Top **telemetry bar** — FPS, time Tehran, scroll %, `v1.0.0`
+- [x] **U-SHELL-03** Bottom **status bar** — coords, "SYS.ONLINE", GitHub link
 - [ ] **U-SHELL-04** Persistent nav redesign — logo monogram, magnetic links, active section
 - [ ] **U-SHELL-05** `ScrollTrigger` integration (GSAP plugin) — register once in `scroll-animations.js`
 - [ ] **U-SHELL-06** Smooth scroll: Lenis or custom spring scroll (match WebGL scroll progress)

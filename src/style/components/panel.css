@@ -1,0 +1,42 @@
+.void-panel {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--panel-radius);
+  box-shadow: var(--glass-glow);
+  backdrop-filter: blur(14px);
+  padding: 1.25rem 1.5rem;
+}
+
+.void-panel__label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--rift-glow);
+  margin-bottom: 0.75rem;
+}
+
+.void-panel__body {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--text-dim);
+}
+
+.skip-link {
+  position: fixed;
+  top: -100%;
+  left: 1rem;
+  z-index: 10000;
+  padding: 0.75rem 1rem;
+  background: var(--rift);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}

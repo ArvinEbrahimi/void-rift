@@ -18,6 +18,8 @@ import { createRAF } from './utils/raf.js';
 import { createResizeHandler } from './utils/resize.js';
 import { createScrollController } from './utils/scroll.js';
 import { detectQualityTier, getTierConfig } from './utils/quality-tier.js';
+import { createShell } from './ui/shell/shell.js';
+import { createRiftEnvMap } from './webgl/environment/pmrem-env.js';
 import { warmupShaders } from './utils/shader-warmup.js';
 import { gsap } from 'gsap';
 
@@ -30,12 +32,21 @@ const rift = createRift(scene, tierConfig);
 const lightingRig = createLightingRig(scene, rift.group);
 rift.bindLighting(lightingRig.uniforms);
 
-const riftParticles = createRiftParticles(rift.group, tierConfig);
+const riftParticles = createRiftParticles(rift.group, tierConfig, camera);
 const particles = createParticles(scene, tierConfig);
 const nebula = createNebulaVolume(scene);
+
+const envMap = createRiftEnvMap(renderer);
+rift.applyEnvMap(envMap);
+
 const bloomRoots = createBloomTargetList({ rift, riftParticles, particles, lightingRig });
 const pp = createPostprocessing(renderer, scene, camera, tierConfig, bloomRoots);
 const parallax = createMouseParallax();
+const shell = createShell();
+
+const fogDensity = scene.fog?.density ?? 0.032;
+particles.setFogDensity(fogDensity * 0.012, fogDensity * 0.0001);
+riftParticles.setFogDensity(fogDensity * 0.0008);
 
 const overlay = createOverlay();
 createSections();
@@ -119,6 +130,11 @@ createRAF([
     rift.update(time, proximity);
     riftParticles.setScrollVelocity(scrollVelocity);
     riftParticles.update(time, rift.uniforms.uReveal.value);
+    shell.telemetry.tickFrame();
+    shell.setCursorCoords(
+      (target.x + 1) * 0.5 * window.innerWidth,
+      (1 - target.y) * 0.5 * window.innerHeight
+    );
     pp.setChromaticIntensity(target.x, target.y, edgeFactor);
     pp.composer.render();
   },

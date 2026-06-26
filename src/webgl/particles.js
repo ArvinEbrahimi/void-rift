@@ -39,7 +39,7 @@ export function createParticles(scene, tierConfig = getTierConfig()) {
   starGeo.setAttribute('color', new THREE.BufferAttribute(starColors, 3));
 
   const starMat = new THREE.ShaderMaterial({
-    uniforms: { uTime: { value: 0 }, uScrollVel: { value: 0 } },
+    uniforms: { uTime: { value: 0 }, uScrollVel: { value: 0 }, uFogDensity: { value: 0.00012 } },
     vertexShader: `
       attribute float size;
       attribute vec3 color;
@@ -60,11 +60,13 @@ export function createParticles(scene, tierConfig = getTierConfig()) {
     fragmentShader: `
       varying vec3 vColor;
       varying float vDepth;
+      uniform float uFogDensity;
       void main() {
         float dist = length(gl_PointCoord - vec2(0.5));
         float soft = exp(-dist * dist * 16.0);
         float depthFade = smoothstep(220.0, 40.0, vDepth);
-        gl_FragColor = vec4(vColor, soft * depthFade * 0.85);
+        float fog = exp(-uFogDensity * vDepth * vDepth);
+        gl_FragColor = vec4(vColor, soft * depthFade * fog * 0.85);
       }
     `,
     transparent: true,
@@ -110,7 +112,7 @@ export function createParticles(scene, tierConfig = getTierConfig()) {
   dustGeo.setAttribute('phase', new THREE.BufferAttribute(dustPhase, 1));
 
   const dustMat = new THREE.ShaderMaterial({
-    uniforms: { uTime: { value: 0 } },
+    uniforms: { uTime: { value: 0 }, uFogDensity: { value: 0.00035 } },
     vertexShader: `
       attribute float size;
       attribute vec3 color;
@@ -134,11 +136,13 @@ export function createParticles(scene, tierConfig = getTierConfig()) {
     fragmentShader: `
       varying vec3 vColor;
       varying float vDepth;
+      uniform float uFogDensity;
       void main() {
         float dist = length(gl_PointCoord - vec2(0.5));
         float soft = exp(-dist * dist * 12.0);
         float depthFade = smoothstep(80.0, 8.0, vDepth);
-        gl_FragColor = vec4(vColor, soft * depthFade * 0.12);
+        float fog = exp(-uFogDensity * vDepth * vDepth);
+        gl_FragColor = vec4(vColor, soft * depthFade * fog * 0.12);
       }
     `,
     transparent: true,
@@ -155,6 +159,10 @@ export function createParticles(scene, tierConfig = getTierConfig()) {
     dust,
     setScrollVelocity(vel) {
       starMat.uniforms.uScrollVel.value = vel;
+    },
+    setFogDensity(near, far) {
+      starMat.uniforms.uFogDensity.value = far;
+      dustMat.uniforms.uFogDensity.value = near;
     },
     update(time) {
       starMat.uniforms.uTime.value = time;

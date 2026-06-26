@@ -1,0 +1,34 @@
+:root {
+  --void: #03030a;
+  --deep: #07071a;
+  --nebula-a: #1a0a3d;
+  --nebula-b: #0d1f3c;
+  --dust: #b8a0e8;
+  --star: #e8e4f0;
+  --rift: #6e3fff;
+  --rift-glow: #a855f7;
+  --text-primary: #f4f0ff;
+  --text-dim: #6b6880;
+  --accent: #7c3aed;
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --text-hero: clamp(5rem, 12vw, 13rem);
+  --text-title: clamp(1.1rem, 2vw, 1.5rem);
+  --text-label: clamp(0.7rem, 1vw, 0.85rem);
+
+  --glass-bg: rgba(7, 7, 26, 0.55);
+  --glass-border: rgba(110, 63, 255, 0.25);
+  --glass-glow: 0 0 40px rgba(110, 63, 255, 0.08);
+  --panel-radius: 2px;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --rail-width: 2px;
+
+  --dur-fast: 200ms;
+  --dur-med: 600ms;
+  --dur-slow: 1200ms;
+  --stagger: 80ms;
+
+  --hud-z: 20;
+  --shell-pad: clamp(0.75rem, 2vw, 1.25rem);
+}

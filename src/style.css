@@ -1,4 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap');
+@import './style/tokens.css';
+@import './style/components/rail.css';
+@import './style/components/telemetry.css';
+@import './style/components/status.css';
+@import './style/components/panel.css';
 
 *,
 *::before,
@@ -9,23 +14,7 @@
 }
 
 :root {
-  --void: #03030a;
-  --deep: #07071a;
-  --nebula-a: #1a0a3d;
-  --nebula-b: #0d1f3c;
-  --dust: #b8a0e8;
-  --star: #e8e4f0;
-  --rift: #6e3fff;
-  --rift-glow: #a855f7;
-  --text-primary: #f4f0ff;
-  --text-dim: #6b6880;
-  --accent: #7c3aed;
-  --font-display: 'Syne', sans-serif;
-  --font-body: 'DM Sans', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  --text-hero: clamp(5rem, 12vw, 13rem);
-  --text-title: clamp(1.1rem, 2vw, 1.5rem);
-  --text-label: clamp(0.7rem, 1vw, 0.85rem);
+  /* design tokens: see style/tokens.css */
 }
 
 html {
@@ -75,7 +64,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: clamp(1.5rem, 3vw, 3rem);
+  padding: calc(clamp(1.5rem, 3vw, 3rem) + 2.5rem) clamp(1.5rem, 3vw, 3rem) calc(clamp(1.5rem, 3vw, 3rem) + 2rem);
   transition: opacity 0.4s ease, transform 0.4s ease;
   opacity: calc(1 - var(--scroll-progress, 0) * 1.1);
   transform: translateY(calc(var(--scroll-progress, 0) * -8vh));

@@ -176,7 +176,14 @@ export function createRift(scene, tierConfig = { shaderQuality: 1.0 }) {
   return {
     group,
     shell,
+    hexFrame,
+    hexFrameMat,
     uniforms,
+    applyEnvMap(envMap) {
+      hexFrameMat.envMap = envMap;
+      hexFrameMat.envMapIntensity = 0.85;
+      hexFrameMat.needsUpdate = true;
+    },
     bindLighting(lightUniforms) {
       uniforms.uKeyLightPos = lightUniforms.uKeyLightPos;
       uniforms.uRimLightPos = lightUniforms.uRimLightPos;

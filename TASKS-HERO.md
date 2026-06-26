@@ -92,8 +92,6 @@ src/webgl/
 - [x] **H-GEO-06** Add thin energy ribbons (Catmull-Rom curves) orbiting portal on 3 axes
 - [ ] **H-GEO-07** LOD: far = merged mesh + simplified shader; near = full detail
 
-### 3.2 Materials & Shaders
-
 - [ ] **H-MAT-01** Split monolithic `shaders.js` into `.glsl` files with Vite `?raw` import
 - [x] **H-MAT-02** Shell shader v2 (partial — key/rim wrap lighting, 6-octave FBM, thickness absorption):
   - 6-octave FBM displacement
@@ -119,12 +117,12 @@ src/webgl/
 - [x] **H-LGT-02** Light color temps: key `#c4a0ff`, fill `#0a0520`, rim `#7c3aed`
 - [x] **H-LGT-03** Mouse influences key light position (subtle, lerped)
 - [x] **H-LGT-04** Scroll dims key / brightens fill (hero → content handoff)
-- [ ] **H-LGT-05** Optional: PMREM env map from procedural cube render for hex frame metalness
+- [x] **H-LGT-05** Optional: PMREM env map from procedural cube render for hex frame metalness
 - [x] **H-LGT-06** Fake volumetric: additive cone meshes or god-ray shader aligned to key light
 
 ### 3.4 Softness & Atmosphere
 
-- [ ] **H-ATM-01** Layered fog: near `FogExp2` + far custom shader fog on particles
+- [x] **H-ATM-01** Layered fog: near `FogExp2` + far custom shader fog on particles
 - [x] **H-ATM-02** Nebula → 3 parallax planes at Z = -2, -5, -9 with different scroll factors
 - [x] **H-ATM-03** Depth-based particle opacity (fade with distance from camera)
 - [x] **H-ATM-04** Soft particle edges: gaussian falloff in fragment, not hard `discard` circle
@@ -156,7 +154,7 @@ src/webgl/
 - [x] **H-PRT-02** Star field: color temperature variation (blue giant → white dwarf)
 - [x] **H-PRT-03** Dust: curl noise velocity field (GPU-friendly simplified version)
 - [x] **H-PRT-04** Comet trails on 1% of rift particles (short line segment history)
-- [ ] **H-PRT-05** Sort particles back-to-front within rift group (custom sort every N frames)
+- [x] **H-PRT-05** Sort particles back-to-front within rift group (custom sort every N frames)
 - [x] **H-PRT-06** Mobile: 6K → 2K stars, 1.4K → 400 rift particles
 
 ### 3.8 Performance & Quality Tiers
