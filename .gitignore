@@ -6,3 +6,6 @@ dist/
 .env.*
 .vite/
 lighthouse-report.json
+qa/captures/**/*.png
+qa/captures/**/*.webm
+!qa/captures/.gitkeep

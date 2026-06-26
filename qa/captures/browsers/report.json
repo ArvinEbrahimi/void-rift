@@ -1,0 +1,55 @@
+[
+  {
+    "name": "chromium",
+    "ok": true,
+    "metrics": {
+      "tier": "B",
+      "shaderMs": 6747,
+      "phase": "intro"
+    },
+    "shaderErrors": 2,
+    "webkitDepthNoise": 0,
+    "otherErrors": [],
+    "shotPath": "D:\\projects\\void-rift\\qa\\captures\\browsers\\chromium-smoke.png",
+    "warnings": [
+      "THREE.WebGLProgram: Shader Error 0 - VALIDATE_STATUS false\n\nMaterial Name: \nMaterial Type: ShaderMaterial\n\nProgram Info Log: Vertex shader is not compiled.\n\u0000\nVERTEX\n\nERROR: 0:123: 'fwidth' : no matching overloaded function found\n\u0000\n\n  118:   float hex = cos(floor(0.5 + angle / 1.0472) * 1.0472 - angle);\r\n  119:   return hex;\r\n  120: }\r\n  121: \r\n  122: float aastep(float edge, float value) {\r\n> 123:   float width = fwidth(value);\r\n  124:   return smoothstep(edge - width, edge + width, value);\r\n  125: }\r\n  126: \r\n  127: \r\n  128: vec3 toHexPrism(vec3 p, float amount) {\r\n  129:   float angle = atan(p.z, p.x);\r\n",
+      "THREE.WebGLProgram: Shader Error 1282 - VALIDATE_STATUS false\n\nMaterial Name: \nMaterial Type: ShaderMaterial\n\nProgram Info Log: Vertex shader is not compiled.\n\u0000\nVERTEX\n\nERROR: 0:123: 'fwidth' : no matching overloaded function found\n\u0000\n\n  118:   float hex = cos(floor(0.5 + angle / 1.0472) * 1.0472 - angle);\r\n  119:   return hex;\r\n  120: }\r\n  121: \r\n  122: float aastep(float edge, float value) {\r\n> 123:   float width = fwidth(value);\r\n  124:   return smoothstep(edge - width, edge + width, value);\r\n  125: }\r\n  126: \r\n  127: \r\n  128: vec3 toHexPrism(vec3 p, float amount) {\r\n  129:   float angle = atan(p.z, p.x);\r\n"
+    ]
+  },
+  {
+    "name": "firefox",
+    "ok": true,
+    "metrics": {
+      "tier": "C",
+      "shaderMs": 5909,
+      "phase": "intro"
+    },
+    "shaderErrors": 2,
+    "webkitDepthNoise": 0,
+    "otherErrors": [],
+    "shotPath": "D:\\projects\\void-rift\\qa\\captures\\browsers\\firefox-smoke.png",
+    "warnings": [
+      "THREE.WebGLProgram: Shader Error 0 - VALIDATE_STATUS false\n\nMaterial Name: \nMaterial Type: ShaderMaterial\n\nProgram Info Log: Must have a compiled vertex shader attached:\nSHADER_INFO_LOG:\nERROR: 0:123: 'fwidth' : no matching overloaded function found\nVERTEX\n\nERROR: 0:123: 'fwidth' : no matching overloaded function found\n\n  118:   float hex = cos(floor(0.5 + angle / 1.0472) * 1.0472 - angle);\r\n  119:   return hex;\r\n  120: }\r\n  121: \r\n  122: float aastep(float edge, float value) {\r\n> 123:   float width = fwidth(value);\r\n  124:   return smoothstep(edge - width, edge + width, value);\r\n  125: }\r\n  126: \r\n  127: \r\n  128: vec3 toHexPrism(vec3 p, float amount) {\r\n  129:   float angle = atan(p.z, p.x);\r\n",
+      "THREE.WebGLProgram: Shader Error 1282 - VALIDATE_STATUS false\n\nMaterial Name: \nMaterial Type: ShaderMaterial\n\nProgram Info Log: Must have a compiled vertex shader attached:\nSHADER_INFO_LOG:\nERROR: 0:123: 'fwidth' : no matching overloaded function found\nVERTEX\n\nERROR: 0:123: 'fwidth' : no matching overloaded function found\n\n  118:   float hex = cos(floor(0.5 + angle / 1.0472) * 1.0472 - angle);\r\n  119:   return hex;\r\n  120: }\r\n  121: \r\n  122: float aastep(float edge, float value) {\r\n> 123:   float width = fwidth(value);\r\n  124:   return smoothstep(edge - width, edge + width, value);\r\n  125: }\r\n  126: \r\n  127: \r\n  128: vec3 toHexPrism(vec3 p, float amount) {\r\n  129:   float angle = atan(p.z, p.x);\r\n"
+    ]
+  },
+  {
+    "name": "webkit",
+    "ok": true,
+    "metrics": {
+      "tier": "C",
+      "shaderMs": 6034,
+      "phase": "warmed"
+    },
+    "shaderErrors": 2,
+    "webkitDepthNoise": 256,
+    "otherErrors": [],
+    "shotPath": "D:\\projects\\void-rift\\qa\\captures\\browsers\\webkit-smoke.png",
+    "warnings": [
+      "THREE.WebGLProgram: Shader Error 0 - VALIDATE_STATUS false\n\nMaterial Name: \nMaterial Type: ShaderMaterial\n\nProgram Info Log: Vertex shader is not compiled.\nVERTEX\n\nERROR: 0:123: 'fwidth' : no matching overloaded function found\n\n  118:   float hex = cos(floor(0.5 + angle / 1.0472) * 1.0472 - angle);\r\n  119:   return hex;\r\n  120: }\r\n  121: \r\n  122: float aastep(float edge, float value) {\r\n> 123:   float width = fwidth(value);\r\n  124:   return smoothstep(edge - width, edge + width, value);\r\n  125: }\r\n  126: \r\n  127: \r\n  128: vec3 toHexPrism(vec3 p, float amount) {\r\n  129:   float angle = atan(p.z, p.x);\r\n",
+      "THREE.WebGLProgram: Shader Error 1282 - VALIDATE_STATUS false\n\nMaterial Name: \nMaterial Type: ShaderMaterial\n\nProgram Info Log: Vertex shader is not compiled.\nVERTEX\n\nERROR: 0:123: 'fwidth' : no matching overloaded function found\n\n  118:   float hex = cos(floor(0.5 + angle / 1.0472) * 1.0472 - angle);\r\n  119:   return hex;\r\n  120: }\r\n  121: \r\n  122: float aastep(float edge, float value) {\r\n> 123:   float width = fwidth(value);\r\n  124:   return smoothstep(edge - width, edge + width, value);\r\n  125: }\r\n  126: \r\n  127: \r\n  128: vec3 toHexPrism(vec3 p, float amount) {\r\n  129:   float angle = atan(p.z, p.x);\r\n",
+      "WebGL: INVALID_OPERATION: useProgram: program not valid",
+      "WebGL: INVALID_OPERATION: Read and write depth stencil attachments cannot be the same image."
+    ]
+  }
+]

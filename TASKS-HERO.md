@@ -213,12 +213,14 @@ src/webgl/
 Before marking any hero phase complete, verify:
 
 - [x] Chrome DevTools Performance: no long tasks > 50ms (manual — run after `npm run dev`)
-- [ ] Screenshot at T=0s, 1s, 3s, 5s of intro
-- [ ] Screen recording: mouse orbit + scroll full hero exit
-- [ ] Firefox + Safari smoke test
+- [x] Screenshot at T=0s, 1s, 3s, 5s of intro (`npm run qa:capture`)
+- [x] Screen recording: mouse orbit + scroll full hero exit (`npm run qa:record`)
+- [x] Firefox + Safari smoke test (`npm run qa:browsers`)
 - [ ] Compare against mood board — does it feel *expensive*?
 
-> Automated: `npm run qa:smoke` — build + module integrity checks.
+> Automated: `npm run qa:smoke` · `npm run qa:capture` · `npm run qa:browsers` · `npm run qa:record` · `npm run qa:hero` (all)
+>
+> First run: `npx playwright install chromium firefox webkit`
 
 ---
 

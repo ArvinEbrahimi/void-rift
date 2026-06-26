@@ -32,6 +32,8 @@ import { gsap } from 'gsap';
 const tier = detectQualityTier();
 const tierConfig = getTierConfig(tier);
 
+window.__VOID_QA = { phase: 'boot', introStartMs: null };
+
 const { scene, camera, renderer } = createScene();
 const cameraRig = createCameraRig(camera);
 const rift = createRift(scene, tierConfig);
@@ -130,6 +132,7 @@ const scroll = createScrollController({
 
 warmupShaders(renderer, scene, camera)
   .then(() => {
+    window.__VOID_QA.phase = 'warmed';
     const egg = document.querySelector('[data-shader-egg]');
     if (egg && window.__VOID_SHADER_MS) {
       egg.textContent = `shader compile: ${window.__VOID_SHADER_MS}ms`;
@@ -139,6 +142,8 @@ warmupShaders(renderer, scene, camera)
   .catch(() => {});
 
 window.addEventListener('load', () => {
+  window.__VOID_QA.introStartMs = performance.now();
+  window.__VOID_QA.phase = 'intro';
   playIntro(() => {
     rift.reveal();
     cameraRig.playIntro();
