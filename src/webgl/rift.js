@@ -116,6 +116,7 @@ export function createRift(scene, tierConfig = { shaderQuality: 1.0 }) {
     new THREE.SphereGeometry(0.38, 32, 32),
     new THREE.MeshBasicMaterial({ color: 0x010108, transparent: true, opacity: 0.98 })
   );
+  voidCore.userData.noBloom = true;
   group.add(voidCore);
 
   const accretionMat = new THREE.ShaderMaterial({

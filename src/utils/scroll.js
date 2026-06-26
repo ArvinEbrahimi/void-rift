@@ -1,7 +1,17 @@
-export function createScrollController({ rift, overlay, onProgress }) {
+export function createScrollController({ rift, overlay, onProgress, onVelocity }) {
   let progress = 0;
+  let velocity = 0;
+  let lastY = window.scrollY;
+  let lastT = performance.now();
 
   function update() {
+    const now = performance.now();
+    const dt = Math.max(8, now - lastT);
+    const dy = window.scrollY - lastY;
+    velocity += (dy / dt - velocity) * 0.22;
+    lastY = window.scrollY;
+    lastT = now;
+
     const heroHeight = window.innerHeight;
     const maxScroll = heroHeight * 0.85;
     progress = Math.min(1, Math.max(0, window.scrollY / maxScroll));
@@ -14,6 +24,7 @@ export function createScrollController({ rift, overlay, onProgress }) {
     }
 
     if (onProgress) onProgress(progress);
+    if (onVelocity) onVelocity(velocity);
   }
 
   window.addEventListener('scroll', update, { passive: true });
@@ -21,6 +32,7 @@ export function createScrollController({ rift, overlay, onProgress }) {
 
   return {
     getProgress: () => progress,
+    getVelocity: () => velocity,
     destroy() {
       window.removeEventListener('scroll', update);
     },

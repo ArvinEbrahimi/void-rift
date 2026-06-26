@@ -39,19 +39,21 @@ export function createParticles(scene, tierConfig = getTierConfig()) {
   starGeo.setAttribute('color', new THREE.BufferAttribute(starColors, 3));
 
   const starMat = new THREE.ShaderMaterial({
-    uniforms: { uTime: { value: 0 } },
+    uniforms: { uTime: { value: 0 }, uScrollVel: { value: 0 } },
     vertexShader: `
       attribute float size;
       attribute vec3 color;
       varying vec3 vColor;
       varying float vDepth;
       uniform float uTime;
+      uniform float uScrollVel;
       void main() {
         vColor = color;
         vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
         vDepth = -mvPosition.z;
         float twinkle = 0.8 + 0.2 * sin(uTime * 2.0 + position.x * 10.0);
-        gl_PointSize = size * twinkle * (300.0 / max(vDepth, 1.0));
+        float scrollStretch = 1.0 + abs(uScrollVel) * 0.2;
+        gl_PointSize = size * twinkle * scrollStretch * (300.0 / max(vDepth, 1.0));
         gl_Position = projectionMatrix * mvPosition;
       }
     `,
@@ -151,6 +153,9 @@ export function createParticles(scene, tierConfig = getTierConfig()) {
   return {
     stars,
     dust,
+    setScrollVelocity(vel) {
+      starMat.uniforms.uScrollVel.value = vel;
+    },
     update(time) {
       starMat.uniforms.uTime.value = time;
       dustMat.uniforms.uTime.value = time;

@@ -137,25 +137,25 @@ src/webgl/
 - [x] **H-MOT-02** Rift reveal: scale + `uReveal` + light intensity — single orchestrated timeline
 - [x] **H-MOT-03** Breathing: multi-frequency sine stack (not single `sin(time)`)
 - [x] **H-MOT-04** Scroll-linked: rift scale, Y offset, tunnel twist, particle emit rate (partial)
-- [ ] **H-MOT-05** Velocity-aware scroll (lenis or custom): fast scroll = motion blur hint on particles
+- [x] **H-MOT-05** Velocity-aware scroll: fast scroll stretches particle size (motion blur hint)
 - [x] **H-MOT-06** Idle state: after 8s no input, subtle autonomous camera drift
 - [x] **H-MOT-07** `prefers-reduced-motion`: freeze displacement, instant reveal, no camera path
 
 ### 3.6 Post-Processing (Cinematic)
 
-- [ ] **H-POST-01** Selective bloom — luminance mask from rift + stars only
-- [ ] **H-POST-02** Bloom levels: ghosting on brightest veins only (mipmap chain tuning)
-- [ ] **H-POST-03** Chromatic aberration: radial, stronger at viewport edges, mouse-offset
+- [x] **H-POST-01** Selective bloom — luminance mask from rift + stars only
+- [x] **H-POST-02** Bloom levels: mipmap chain tuning (levels 7–9, radius 0.68)
+- [x] **H-POST-03** Chromatic aberration: radial, stronger at viewport edges, mouse-offset
 - [x] **H-POST-04** Color grading pass (partial — BrightnessContrast + scroll vignette)
 - [ ] **H-POST-05** Optional DOF: focus on rift, blur nebula background (Performance Tier B+)
-- [ ] **H-POST-06** Anti-banding: subtle dither in final composite
+- [x] **H-POST-06** Anti-banding: subtle dither in final composite (NoiseEffect overlay)
 
 ### 3.7 Particles (Expert tier)
 
 - [x] **H-PRT-01** Move rift particles to `rift/rift-particles.js`, sync emit with `uReveal`
 - [x] **H-PRT-02** Star field: color temperature variation (blue giant → white dwarf)
 - [x] **H-PRT-03** Dust: curl noise velocity field (GPU-friendly simplified version)
-- [ ] **H-PRT-04** Comet trails on 1% of rift particles (short line segment history)
+- [x] **H-PRT-04** Comet trails on 1% of rift particles (short line segment history)
 - [ ] **H-PRT-05** Sort particles back-to-front within rift group (custom sort every N frames)
 - [x] **H-PRT-06** Mobile: 6K → 2K stars, 1.4K → 400 rift particles
 
@@ -169,7 +169,7 @@ src/webgl/
 
 - [x] **H-PERF-01** `detectTier()` on init, expose `window.__VOID_TIER` for debug
 - [x] **H-PERF-02** Pause RAF when tab hidden (`document.visibilityState`)
-- [ ] **H-PERF-03** Shader compile cache warm-up during loading bar
+- [x] **H-PERF-03** Shader compile cache warm-up during loading bar
 - [ ] **H-PERF-04** Target: 60fps @ 1080p Tier A, 45fps Tier B
 
 ---

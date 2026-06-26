@@ -7,6 +7,7 @@ import { createNebulaVolume } from './webgl/environment/nebula-volume.js';
 import { createRift } from './webgl/rift.js';
 import { createRiftParticles } from './webgl/rift/rift-particles.js';
 import { createPostprocessing } from './webgl/postprocessing.js';
+import { createBloomTargetList } from './webgl/post/bloom-selective.js';
 import { createMouseParallax } from './webgl/mouse-parallax.js';
 import { createOverlay } from './ui/overlay.js';
 import { createSections } from './ui/sections.js';
@@ -17,6 +18,7 @@ import { createRAF } from './utils/raf.js';
 import { createResizeHandler } from './utils/resize.js';
 import { createScrollController } from './utils/scroll.js';
 import { detectQualityTier, getTierConfig } from './utils/quality-tier.js';
+import { warmupShaders } from './utils/shader-warmup.js';
 import { gsap } from 'gsap';
 
 const tier = detectQualityTier();
@@ -31,7 +33,8 @@ rift.bindLighting(lightingRig.uniforms);
 const riftParticles = createRiftParticles(rift.group, tierConfig);
 const particles = createParticles(scene, tierConfig);
 const nebula = createNebulaVolume(scene);
-const pp = createPostprocessing(renderer, scene, camera, tierConfig);
+const bloomRoots = createBloomTargetList({ rift, riftParticles, particles, lightingRig });
+const pp = createPostprocessing(renderer, scene, camera, tierConfig, bloomRoots);
 const parallax = createMouseParallax();
 
 const overlay = createOverlay();
@@ -45,6 +48,7 @@ document.body.appendChild(loadingBar);
 createResizeHandler({ camera, renderer, composer: pp.composer });
 
 const parallaxState = { x: 0, y: 0 };
+let scrollVelocity = 0;
 
 const scroll = createScrollController({
   rift,
@@ -55,7 +59,12 @@ const scroll = createScrollController({
     nebula.setParallax(parallaxState.x, progress);
     pp.setScrollProgress(progress);
   },
+  onVelocity(vel) {
+    scrollVelocity = vel;
+  },
 });
+
+warmupShaders(renderer, scene, camera).catch(() => {});
 
 window.addEventListener('load', () => {
   playIntro(() => {
@@ -95,18 +104,22 @@ createRAF([
     parallaxState.x = target.x;
     parallaxState.y = target.y;
 
+    const edgeFactor = Math.min(1, Math.hypot(target.x, target.y) * 1.2);
+
     cameraRig.setParallax(target.x, target.y);
     cameraRig.update(time);
 
     lightingRig.setMouseTarget(target.x, target.y);
     lightingRig.update(time, proximity);
 
+    particles.setScrollVelocity(scrollVelocity);
     particles.update(time);
     nebula.setParallax(target.x, scroll.getProgress());
     nebula.update(time);
     rift.update(time, proximity);
+    riftParticles.setScrollVelocity(scrollVelocity);
     riftParticles.update(time, rift.uniforms.uReveal.value);
-    pp.setChromaticIntensity(target.x, target.y);
+    pp.setChromaticIntensity(target.x, target.y, edgeFactor);
     pp.composer.render();
   },
 ]);
