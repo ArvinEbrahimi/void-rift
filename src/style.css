@@ -25,6 +25,10 @@
   /* design tokens: see style/tokens.css */
 }
 
+html.smooth-scroll-active {
+  scroll-behavior: auto;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -401,10 +405,21 @@ body {
 }
 
 /* Page scroll sections */
+.overlay--handoff {
+  pointer-events: none;
+}
+
+.overlay--handoff .overlay__center {
+  transform: translateY(calc(var(--scroll-progress, 0) * -12vh)) scale(calc(1 - var(--scroll-progress, 0) * 0.06));
+}
+
 .page-content {
   position: relative;
   z-index: 5;
   pointer-events: none;
+  opacity: calc(0.55 + var(--hero-handoff, 0) * 0.45);
+  transform: translateY(calc((1 - var(--hero-handoff, 0)) * 32px));
+  transition: opacity 0.12s linear, transform 0.12s linear;
 }
 
 .hero-spacer {
@@ -547,6 +562,16 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .page-content {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .overlay--handoff .overlay__center {
+    transform: none;
+  }
+
   *,
   *::before,
   *::after {

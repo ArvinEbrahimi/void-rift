@@ -18,6 +18,7 @@ import { initCursor } from './ui/cursor.js';
 import { createRAF } from './utils/raf.js';
 import { createResizeHandler } from './utils/resize.js';
 import { createScrollController } from './utils/scroll.js';
+import { createSmoothScroll } from './utils/smooth-scroll.js';
 import { detectQualityTier, getTierConfig } from './utils/quality-tier.js';
 import { createShell } from './ui/shell/shell.js';
 import { createFooter } from './ui/footer/footer.js';
@@ -107,6 +108,8 @@ createResizeHandler({ camera, renderer, composer: pp.composer });
 const parallaxState = { x: 0, y: 0 };
 let scrollVelocity = 0;
 
+const smoothScroll = createSmoothScroll();
+
 const scroll = createScrollController({
   rift,
   overlay,
@@ -144,7 +147,7 @@ window.addEventListener('load', () => {
       ease: 'power2.inOut',
     });
   });
-  initSmoothNav();
+  initSmoothNav(smoothScroll);
   initScrollAnimations();
 });
 

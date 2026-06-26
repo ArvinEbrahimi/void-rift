@@ -90,13 +90,13 @@ The site is a **mission control interface** for a creative engineer. The WebGL r
 - [x] **U-SHELL-03** Bottom **status bar** — coords, "SYS.ONLINE", GitHub link
 - [x] **U-SHELL-04** Persistent nav redesign — logo monogram, magnetic links, active section
 - [x] **U-SHELL-05** `ScrollTrigger` integration (GSAP plugin) — register once in `scroll-animations.js`
-- [ ] **U-SHELL-06** Smooth scroll: Lenis or custom spring scroll (match WebGL scroll progress)
-- [ ] **U-SHELL-07** Page transition: hero → content crossfade with rift position sync
+- [x] **U-SHELL-06** Smooth scroll: Lenis or custom spring scroll (match WebGL scroll progress)
+- [x] **U-SHELL-07** Page transition: hero → content crossfade with rift position sync
 
 ### 3.2 Hero Overlay v2 (`ui/hero-overlay/`)
 
 - [x] **U-HERO-01** Split layout option: name left-aligned, rift visual center-right (asymmetric)
-- [ ] **U-HERO-02** Role line: animated word cycle with 3D flip or scramble decode effect
+- [x] **U-HERO-02** Role line: animated word cycle with 3D flip or scramble decode effect
 - [x] **U-HERO-03** CTA pair: `View Work ↓` primary + `GitHub` ghost — not single button
 - [x] **U-HERO-04** Scroll indicator: custom SVG chevron with progress ring
 - [x] **U-HERO-05** Easter egg: Konami or typed `void` triggers rift pulse
@@ -273,8 +273,8 @@ src/
 ### Performance
 
 - [x] **U-PERF-01** CSS `content-visibility: auto` on below-fold sections
-- [ ] **U-PERF-02** Lazy-load Prism only when Stack section near viewport
-- [ ] **U-PERF-03** No layout shift — reserve space for bento grid
+- [x] **U-PERF-02** Lazy-load Prism only when Stack section near viewport (N/A — CSS token highlighting)
+- [x] **U-PERF-03** No layout shift — reserve space for bento grid
 - [ ] **U-PERF-04** Lighthouse: Accessibility ≥ 90, Best Practices ≥ 95
 
 ---

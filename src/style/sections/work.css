@@ -42,6 +42,7 @@
   grid-template-rows: minmax(160px, 1fr) minmax(160px, 1fr) minmax(140px, auto);
   gap: 1rem;
   min-height: 520px;
+  contain-intrinsic-size: 520px;
 }
 
 .bento-card {

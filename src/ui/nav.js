@@ -1,4 +1,4 @@
-export function initSmoothNav() {
+export function initSmoothNav(smoothScroll) {
   document.querySelectorAll('a[href^="#"]').forEach((link) => {
     link.addEventListener('click', (e) => {
       const id = link.getAttribute('href');
@@ -8,7 +8,13 @@ export function initSmoothNav() {
       if (!target) return;
 
       e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const top = target.getBoundingClientRect().top + window.scrollY;
+
+      if (smoothScroll?.scrollTo) {
+        smoothScroll.scrollTo(top);
+      } else {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     });
   });
 }

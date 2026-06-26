@@ -21,6 +21,8 @@ export function createScrollController({ rift, overlay, onProgress, onVelocity }
     if (overlay) {
       overlay.style.setProperty('--scroll-progress', progress.toFixed(3));
       overlay.classList.toggle('overlay--scrolled', progress > 0.15);
+      overlay.classList.toggle('overlay--handoff', progress > 0.25);
+      document.documentElement.style.setProperty('--hero-handoff', progress.toFixed(3));
     }
 
     if (onProgress) onProgress(progress);

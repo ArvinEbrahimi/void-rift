@@ -7,42 +7,57 @@ const subtitles = [
   'GSAP & Motion',
 ];
 
-function startTypewriter() {
+const SCRAMBLE_CHARS = '!<>-_\\/[]{}—=+*^?#________';
+
+function scrambleText(el, text, onComplete) {
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) {
+    el.textContent = text;
+    if (onComplete) onComplete();
+    return;
+  }
+
+  const duration = 700;
+  const start = performance.now();
+
+  function tick(now) {
+    const t = Math.min(1, (now - start) / duration);
+    const revealed = Math.floor(text.length * t);
+    let out = '';
+
+    for (let i = 0; i < text.length; i++) {
+      if (i < revealed) {
+        out += text[i];
+      } else {
+        out += SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
+      }
+    }
+
+    el.textContent = out;
+    if (t < 1) requestAnimationFrame(tick);
+    else {
+      el.textContent = text;
+      if (onComplete) onComplete();
+    }
+  }
+
+  requestAnimationFrame(tick);
+}
+
+function startRoleCycle() {
   const el = document.querySelector('.overlay__subtitle-text');
   if (!el) return;
 
   let idx = 0;
 
-  function type(text, cb) {
-    let i = 0;
-    el.textContent = '';
-    const interval = setInterval(() => {
-      el.textContent += text[i++];
-      if (i >= text.length) {
-        clearInterval(interval);
-        setTimeout(() => erase(cb), 1800);
-      }
-    }, 70);
-  }
-
-  function erase(cb) {
-    const interval = setInterval(() => {
-      el.textContent = el.textContent.slice(0, -1);
-      if (!el.textContent) {
-        clearInterval(interval);
-        cb();
-      }
-    }, 35);
-  }
-
-  function loop() {
-    type(subtitles[idx % subtitles.length], () => {
+  function next() {
+    scrambleText(el, subtitles[idx % subtitles.length], () => {
       idx++;
-      loop();
+      setTimeout(next, 2200);
     });
   }
 
-  loop();
+  next();
 }
 
 export function playIntro(onRiftReveal) {
@@ -95,7 +110,7 @@ export function playIntro(onRiftReveal) {
       },
       '-=0.4'
     )
-    .add(() => startTypewriter(), '-=0.2');
+    .add(() => startRoleCycle(), '-=0.2');
 
   return tl;
 }
