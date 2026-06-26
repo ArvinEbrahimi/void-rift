@@ -44,6 +44,8 @@ export const shellVertexShader = `
   uniform float uMouse;
   uniform float uReveal;
   uniform float uScroll;
+  uniform float uHexMorph;
+  uniform float uQuality;
   varying vec3 vNormal;
   varying vec3 vWorldPos;
   varying vec3 vViewDir;
@@ -53,13 +55,39 @@ export const shellVertexShader = `
 
   ${NOISE_GLSL}
 
+  vec3 toHexPrism(vec3 p, float amount) {
+    float angle = atan(p.z, p.x);
+    float r = length(p.xz);
+    float hex = cos(floor(0.5 + angle / 1.0472) * 1.0472 - angle);
+    float targetR = mix(r, 1.12 * hex, 0.7);
+    vec3 outP = p;
+    outP.x = cos(angle) * targetR;
+    outP.z = sin(angle) * targetR;
+    return mix(p, outP, amount);
+  }
+
+  float fbmQuality(vec3 p, float quality) {
+    float value = 0.0;
+    float amplitude = 0.5;
+    int maxIter = quality > 0.7 ? 6 : (quality > 0.55 ? 4 : 3);
+    for (int i = 0; i < 6; i++) {
+      if (i >= maxIter) break;
+      value += amplitude * noise3(p);
+      p *= 2.03;
+      amplitude *= 0.5;
+    }
+    return value;
+  }
+
   void main() {
-    vec3 pos = position;
+    vec3 pos = toHexPrism(position, uHexMorph * uReveal);
     vec3 n = normalize(normal);
 
     float hex = hexFold(pos);
-    float breathe = sin(uTime * 0.9 + pos.y * 2.5) * 0.06;
-    float warp = fbm3(pos * 1.8 + vec3(uTime * 0.22));
+    float breathe = sin(uTime * 0.9 + pos.y * 2.5) * 0.06
+                  + sin(uTime * 1.65 + pos.x * 3.0) * 0.035
+                  + sin(uTime * 0.42 + pos.z * 2.0) * 0.02;
+    float warp = fbmQuality(pos * 1.8 + vec3(uTime * 0.22), uQuality);
     float ridge = ridged(pos * 3.2 - vec3(uTime * 0.18)) * 0.35;
     float displace = (warp * 0.42 + ridge + breathe) * uReveal;
     displace += uMouse * (warp + hex * 0.25) * 0.35;
@@ -253,6 +281,65 @@ export const filamentFragmentShader = `
     float pulse = 0.4 + 0.6 * sin(uTime * 4.0 + vPhase * 6.28);
     vec3 col = vec3(0.65, 0.28, 1.0) * pulse;
     float alpha = pulse * 0.7 * uReveal;
+    gl_FragColor = vec4(col, alpha);
+  }
+`;
+
+export const accretionVertexShader = `
+  varying vec2 vUv;
+  varying vec3 vPosition;
+  void main() {
+    vUv = uv;
+    vPosition = position;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+`;
+
+export const accretionFragmentShader = `
+  uniform float uTime;
+  uniform float uReveal;
+  varying vec2 vUv;
+  varying vec3 vPosition;
+
+  void main() {
+    float radius = length(vPosition.xy);
+    float angle = atan(vPosition.y, vPosition.x);
+    float spin = angle + uTime * 2.2 - radius * 4.0;
+    float bands = sin(spin * 12.0) * 0.5 + 0.5;
+    float inner = smoothstep(0.32, 0.38, radius);
+    float outer = 1.0 - smoothstep(0.58, 0.64, radius);
+    float mask = inner * outer;
+
+    vec3 col = mix(vec3(0.15, 0.02, 0.35), vec3(0.85, 0.35, 1.0), bands);
+    col += vec3(1.0, 0.6, 0.9) * pow(bands, 6.0) * 0.4;
+
+    float alpha = mask * (0.35 + bands * 0.45) * uReveal;
+    gl_FragColor = vec4(col, alpha);
+  }
+`;
+
+export const ribbonVertexShader = `
+  uniform float uRibbonPhase;
+  varying float vPhase;
+  varying vec2 vUv;
+  void main() {
+    vPhase = uRibbonPhase;
+    vUv = uv;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+`;
+
+export const ribbonFragmentShader = `
+  uniform float uTime;
+  uniform float uReveal;
+  varying float vPhase;
+  varying vec2 vUv;
+
+  void main() {
+    float streak = sin(vUv.x * 24.0 - uTime * 6.0 + vPhase) * 0.5 + 0.5;
+    streak *= 1.0 - abs(vUv.y - 0.5) * 2.0;
+    vec3 col = mix(vec3(0.4, 0.1, 0.9), vec3(0.9, 0.5, 1.0), streak);
+    float alpha = streak * 0.55 * uReveal;
     gl_FragColor = vec4(col, alpha);
   }
 `;

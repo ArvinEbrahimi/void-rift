@@ -11,6 +11,10 @@ import {
   ringFragmentShader,
   filamentVertexShader,
   filamentFragmentShader,
+  accretionVertexShader,
+  accretionFragmentShader,
+  ribbonVertexShader,
+  ribbonFragmentShader,
 } from './rift/shaders.js';
 import {
   createPortalShellGeometry,
@@ -18,10 +22,12 @@ import {
   createTunnelGeometry,
   createHexFrameGeometry,
   createHexFilaments,
-  createOrbitalShards,
+  createVariedOrbitalShards,
+  createAccretionDiscGeometry,
+  createEnergyRibbons,
 } from './rift/geometry.js';
 
-function createEnergyRing(group, radius, tube, color, tiltX = Math.PI / 2, tiltZ = 0, sharedUniforms) {
+function createEnergyRing(group, radius, tube, color, tiltX, tiltZ, sharedUniforms) {
   const geo = new THREE.TorusGeometry(radius, tube, 16, 128);
   const mat = new THREE.ShaderMaterial({
     uniforms: {
@@ -43,7 +49,7 @@ function createEnergyRing(group, radius, tube, color, tiltX = Math.PI / 2, tiltZ
   return mesh;
 }
 
-export function createRift(scene) {
+export function createRift(scene, tierConfig = { shaderQuality: 1.0 }) {
   const group = new THREE.Group();
   scene.add(group);
 
@@ -52,6 +58,8 @@ export function createRift(scene) {
     uMouse: { value: 0 },
     uReveal: { value: 0 },
     uScroll: { value: 0 },
+    uHexMorph: { value: 0 },
+    uQuality: { value: tierConfig.shaderQuality ?? 1.0 },
     uKeyLightPos: { value: new THREE.Vector3(-2.8, 3.2, 4.5) },
     uRimLightPos: { value: new THREE.Vector3(2.5, 0, 2.8) },
   };
@@ -69,10 +77,7 @@ export function createRift(scene) {
   group.add(shell);
 
   const facetMat = new THREE.ShaderMaterial({
-    uniforms: {
-      uTime: uniforms.uTime,
-      uReveal: uniforms.uReveal,
-    },
+    uniforms: { uTime: uniforms.uTime, uReveal: uniforms.uReveal },
     vertexShader: facetVertexShader,
     fragmentShader: facetFragmentShader,
     transparent: true,
@@ -84,10 +89,7 @@ export function createRift(scene) {
   group.add(facets);
 
   const tunnelMat = new THREE.ShaderMaterial({
-    uniforms: {
-      uTime: uniforms.uTime,
-      uReveal: uniforms.uReveal,
-    },
+    uniforms: { uTime: uniforms.uTime, uReveal: uniforms.uReveal },
     vertexShader: tunnelVertexShader,
     fragmentShader: tunnelFragmentShader,
     transparent: true,
@@ -111,16 +113,26 @@ export function createRift(scene) {
   group.add(hexFrame);
 
   const voidCore = new THREE.Mesh(
-    new THREE.SphereGeometry(0.42, 32, 32),
+    new THREE.SphereGeometry(0.38, 32, 32),
     new THREE.MeshBasicMaterial({ color: 0x010108, transparent: true, opacity: 0.98 })
   );
   group.add(voidCore);
 
+  const accretionMat = new THREE.ShaderMaterial({
+    uniforms: { uTime: uniforms.uTime, uReveal: uniforms.uReveal },
+    vertexShader: accretionVertexShader,
+    fragmentShader: accretionFragmentShader,
+    transparent: true,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+    side: THREE.DoubleSide,
+  });
+  const accretion = new THREE.Mesh(createAccretionDiscGeometry(), accretionMat);
+  accretion.rotation.x = -Math.PI / 2;
+  group.add(accretion);
+
   const filamentMat = new THREE.ShaderMaterial({
-    uniforms: {
-      uTime: uniforms.uTime,
-      uReveal: uniforms.uReveal,
-    },
+    uniforms: { uTime: uniforms.uTime, uReveal: uniforms.uReveal },
     vertexShader: filamentVertexShader,
     fragmentShader: filamentFragmentShader,
     transparent: true,
@@ -130,18 +142,29 @@ export function createRift(scene) {
   const filaments = new THREE.LineSegments(createHexFilaments(), filamentMat);
   group.add(filaments);
 
+  const ribbons = createEnergyRibbons().map((mesh) => {
+    const mat = new THREE.ShaderMaterial({
+      uniforms: {
+        uTime: uniforms.uTime,
+        uReveal: uniforms.uReveal,
+        uRibbonPhase: { value: mesh.userData.phase },
+      },
+      vertexShader: ribbonVertexShader,
+      fragmentShader: ribbonFragmentShader,
+      transparent: true,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+    });
+    mesh.material = mat;
+    group.add(mesh);
+    return mesh;
+  });
+
   const ringA = createEnergyRing(group, 1.58, 0.028, 0x9b5cff, Math.PI / 2, 0, uniforms);
   const ringB = createEnergyRing(group, 1.92, 0.016, 0x7c3aed, Math.PI / 2.3, Math.PI / 6, uniforms);
   const ringC = createEnergyRing(group, 2.28, 0.01, 0x6e3fff, Math.PI / 1.8, -Math.PI / 5, uniforms);
 
-  const shards = createOrbitalShards(18, 2.05);
-  shards.material = new THREE.MeshBasicMaterial({
-    color: 0xb87fff,
-    transparent: true,
-    opacity: 0,
-    blending: THREE.AdditiveBlending,
-    depthWrite: false,
-  });
+  const shards = createVariedOrbitalShards(18, 2.05);
   group.add(shards);
 
   group.scale.setScalar(0.01);
@@ -158,21 +181,11 @@ export function createRift(scene) {
       uniforms.uRimLightPos = lightUniforms.uRimLightPos;
     },
     reveal() {
-      gsap.to(uniforms.uReveal, {
-        value: 1,
-        duration: 2.4,
-        ease: 'power2.inOut',
-      });
-      gsap.to(hexFrameMat, {
-        opacity: 0.75,
-        emissiveIntensity: 2,
-        duration: 2.2,
-        ease: 'power2.out',
-      });
-      gsap.to(shards.material, {
-        opacity: 0.75,
-        duration: 2.5,
-        ease: 'power2.out',
+      gsap.to(uniforms.uReveal, { value: 1, duration: 2.4, ease: 'power2.inOut' });
+      gsap.to(uniforms.uHexMorph, { value: 1, duration: 2.8, ease: 'power3.out' });
+      gsap.to(hexFrameMat, { opacity: 0.75, emissiveIntensity: 2, duration: 2.2, ease: 'power2.out' });
+      shards.children.forEach((child) => {
+        gsap.to(child.material, { opacity: 0.75, duration: 2.5, ease: 'power2.out' });
       });
     },
     setScrollProgress(progress) {
@@ -185,7 +198,12 @@ export function createRift(scene) {
       const reveal = uniforms.uReveal.value;
       const scrollEased = scrollProgress * scrollProgress;
       const scrollScale = THREE.MathUtils.lerp(1, 0.26, scrollEased);
-      const pulse = 1 + 0.018 * Math.sin(time * 1.2) + mouseProximity * 0.012;
+      const pulse =
+        1 +
+        0.018 * Math.sin(time * 1.2) +
+        0.01 * Math.sin(time * 2.3) +
+        0.006 * Math.sin(time * 0.55) +
+        mouseProximity * 0.012;
       const baseScale = THREE.MathUtils.lerp(0.01, 1, reveal) * scrollScale;
 
       group.scale.setScalar(baseScale * pulse);
@@ -199,22 +217,33 @@ export function createRift(scene) {
       tunnel.rotation.z += 0.0035;
       hexFrame.rotation.y += 0.0012;
       voidCore.rotation.y -= 0.0008;
+      accretion.rotation.z += 0.004;
 
       ringA.rotation.z += 0.0032;
       ringB.rotation.z -= 0.0024;
       ringC.rotation.z += 0.0016;
 
-      const orbits = shards.userData.orbits;
-      const speeds = shards.userData.speeds;
-      for (let i = 0; i < shards.count; i++) {
-        const orbit = orbits[i] + time * speeds[i] * 0.15;
-        const r = 2.05 + Math.sin(time * 0.8 + i) * 0.12;
-        shardDummy.position.set(Math.cos(orbit) * r, Math.sin(time * 2 + i) * 0.1, Math.sin(orbit) * r);
-        shardDummy.rotation.set(time * speeds[i], time * speeds[i] * 1.3, 0);
-        shardDummy.updateMatrix();
-        shards.setMatrixAt(i, shardDummy.matrix);
-      }
-      shards.instanceMatrix.needsUpdate = true;
+      ribbons.forEach((ribbon, i) => {
+        ribbon.rotation.y += 0.001 * (i + 1);
+      });
+
+      shards.children.forEach((instanced) => {
+        const orbits = instanced.userData.orbits;
+        const speeds = instanced.userData.speeds;
+        for (let i = 0; i < instanced.count; i++) {
+          const orbit = orbits[i] + time * speeds[i] * 0.15;
+          const r = 2.05 + Math.sin(time * 0.8 + i) * 0.12;
+          shardDummy.position.set(
+            Math.cos(orbit) * r,
+            Math.sin(time * 2 + i) * 0.1,
+            Math.sin(orbit) * r
+          );
+          shardDummy.rotation.set(time * speeds[i], time * speeds[i] * 1.3, 0);
+          shardDummy.updateMatrix();
+          instanced.setMatrixAt(i, shardDummy.matrix);
+        }
+        instanced.instanceMatrix.needsUpdate = true;
+      });
     },
   };
 }

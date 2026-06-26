@@ -84,12 +84,12 @@ src/webgl/
 
 ### 3.1 Geometry & Form
 
-- [ ] **H-GEO-01** Refine hex portal frame: beveled inner/outer radii, micro-gaps between frame and shell
-- [ ] **H-GEO-02** Replace tunnel cylinder with custom lathe profile — funnel into void, not straight pipe
-- [ ] **H-GEO-03** Shell: blend icosahedron → hex-prism via vertex shader morph (`uHexMorph` 0–1)
-- [ ] **H-GEO-04** Inner void: inverted hemisphere + black hole disc (accretion shader)
-- [ ] **H-GEO-05** Orbital shards: vary geometry (tetra / octa / custom) per instance, not identical
-- [ ] **H-GEO-06** Add thin energy ribbons (Catmull-Rom curves) orbiting portal on 3 axes
+- [x] **H-GEO-01** Refine hex portal frame: beveled inner/outer radii, micro-gaps between frame and shell
+- [x] **H-GEO-02** Replace tunnel cylinder with custom lathe profile — funnel into void, not straight pipe
+- [x] **H-GEO-03** Shell: blend icosahedron → hex-prism via vertex shader morph (`uHexMorph` 0–1)
+- [x] **H-GEO-04** Inner void: inverted hemisphere + black hole disc (accretion shader)
+- [x] **H-GEO-05** Orbital shards: vary geometry (tetra / octa / custom) per instance, not identical
+- [x] **H-GEO-06** Add thin energy ribbons (Catmull-Rom curves) orbiting portal on 3 axes
 - [ ] **H-GEO-07** LOD: far = merged mesh + simplified shader; near = full detail
 
 ### 3.2 Materials & Shaders
@@ -102,7 +102,7 @@ src/webgl/
   - Thickness-aware fresnel (view-dependent absorption)
   - Subsurface scatter fake (wrap lighting term)
 - [x] **H-MAT-03** Tunnel shader v2: logarithmic spiral UV, depth fog inside tunnel, event horizon darkening
-- [ ] **H-MAT-04** Unified `uQuality` uniform — degrades octaves on mobile
+- [x] **H-MAT-04** Unified `uQuality` uniform — degrades octaves on mobile
 - [ ] **H-MAT-05** Temporal stability — no shader flicker at grazing angles (clamp derivatives)
 - [ ] **H-MAT-06** Normal reconstruction from displacement for accurate fresnel
 
@@ -126,20 +126,20 @@ src/webgl/
 
 - [ ] **H-ATM-01** Layered fog: near `FogExp2` + far custom shader fog on particles
 - [x] **H-ATM-02** Nebula → 3 parallax planes at Z = -2, -5, -9 with different scroll factors
-- [ ] **H-ATM-03** Depth-based particle opacity (fade with distance from camera)
-- [ ] **H-ATM-04** Soft particle edges: gaussian falloff in fragment, not hard `discard` circle
-- [ ] **H-ATM-05** Vignette driven by scroll (opens up as user scrolls down)
-- [ ] **H-ATM-06** Subtle film grain post-pass (animated, low opacity)
+- [x] **H-ATM-03** Depth-based particle opacity (fade with distance from camera)
+- [x] **H-ATM-04** Soft particle edges: gaussian falloff in fragment, not hard `discard` circle
+- [x] **H-ATM-05** Vignette driven by scroll (opens up as user scrolls down)
+- [x] **H-ATM-06** Subtle film grain post-pass (animated, low opacity)
 
 ### 3.5 Motion & Choreography
 
 - [x] **H-MOT-01** Intro camera path (GSAP + custom curve): start Z=8 → settle Z=5 over 3s
-- [ ] **H-MOT-02** Rift reveal: scale + `uReveal` + light intensity — single orchestrated timeline
-- [ ] **H-MOT-03** Breathing: multi-frequency sine stack (not single `sin(time)`)
+- [x] **H-MOT-02** Rift reveal: scale + `uReveal` + light intensity — single orchestrated timeline
+- [x] **H-MOT-03** Breathing: multi-frequency sine stack (not single `sin(time)`)
 - [x] **H-MOT-04** Scroll-linked: rift scale, Y offset, tunnel twist, particle emit rate (partial)
 - [ ] **H-MOT-05** Velocity-aware scroll (lenis or custom): fast scroll = motion blur hint on particles
-- [ ] **H-MOT-06** Idle state: after 8s no input, subtle autonomous camera drift
-- [ ] **H-MOT-07** `prefers-reduced-motion`: freeze displacement, instant reveal, no camera path
+- [x] **H-MOT-06** Idle state: after 8s no input, subtle autonomous camera drift
+- [x] **H-MOT-07** `prefers-reduced-motion`: freeze displacement, instant reveal, no camera path
 
 ### 3.6 Post-Processing (Cinematic)
 
@@ -152,12 +152,12 @@ src/webgl/
 
 ### 3.7 Particles (Expert tier)
 
-- [ ] **H-PRT-01** Move rift particles to `rift/rift-particles.js`, sync emit with `uReveal`
-- [ ] **H-PRT-02** Star field: color temperature variation (blue giant → white dwarf)
-- [ ] **H-PRT-03** Dust: curl noise velocity field (GPU-friendly simplified version)
+- [x] **H-PRT-01** Move rift particles to `rift/rift-particles.js`, sync emit with `uReveal`
+- [x] **H-PRT-02** Star field: color temperature variation (blue giant → white dwarf)
+- [x] **H-PRT-03** Dust: curl noise velocity field (GPU-friendly simplified version)
 - [ ] **H-PRT-04** Comet trails on 1% of rift particles (short line segment history)
 - [ ] **H-PRT-05** Sort particles back-to-front within rift group (custom sort every N frames)
-- [ ] **H-PRT-06** Mobile: 6K → 2K stars, 1.4K → 400 rift particles
+- [x] **H-PRT-06** Mobile: 6K → 2K stars, 1.4K → 400 rift particles
 
 ### 3.8 Performance & Quality Tiers
 
@@ -167,8 +167,8 @@ src/webgl/
 | B | Laptop integrated | 70% | 4 | No DOF |
 | C | Mobile | 30% | 3 | Bloom only |
 
-- [ ] **H-PERF-01** `detectTier()` on init, expose `window.__VOID_TIER` for debug
-- [ ] **H-PERF-02** Pause RAF when tab hidden (`document.visibilityState`)
+- [x] **H-PERF-01** `detectTier()` on init, expose `window.__VOID_TIER` for debug
+- [x] **H-PERF-02** Pause RAF when tab hidden (`document.visibilityState`)
 - [ ] **H-PERF-03** Shader compile cache warm-up during loading bar
 - [ ] **H-PERF-04** Target: 60fps @ 1080p Tier A, 45fps Tier B
 

@@ -5,12 +5,29 @@ export function createCameraRig(camera) {
   const parallax = { x: 0, y: 0 };
   let scrollProgress = 0;
   let introComplete = false;
+  let lastInput = performance.now();
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  camera.position.set(base.x, base.y, 8);
+  if (reducedMotion) {
+    camera.position.set(base.x, base.y, base.z);
+    introComplete = true;
+  } else {
+    camera.position.set(base.x, base.y, 8);
+  }
   camera.lookAt(0, 0, 0);
+
+  const onInput = () => {
+    lastInput = performance.now();
+  };
+  window.addEventListener('mousemove', onInput, { passive: true });
+  window.addEventListener('scroll', onInput, { passive: true });
 
   return {
     playIntro() {
+      if (reducedMotion) {
+        introComplete = true;
+        return null;
+      }
       return gsap.to(camera.position, {
         z: base.z,
         duration: 2.8,
@@ -27,17 +44,22 @@ export function createCameraRig(camera) {
     setScrollProgress(progress) {
       scrollProgress = progress;
     },
-    update() {
-      const scrollDolly = scrollProgress * 1.8;
-      const px = parallax.x * 0.5;
-      const py = parallax.y * 0.3;
+    update(time) {
+      if (!introComplete) return;
 
-      if (introComplete) {
-        camera.position.x = px;
-        camera.position.y = py - scrollProgress * 0.4;
-        camera.position.z = base.z + scrollDolly;
+      const scrollDolly = scrollProgress * 1.8;
+      let px = parallax.x * 0.5;
+      let py = parallax.y * 0.3;
+
+      const idle = (performance.now() - lastInput) / 1000;
+      if (!reducedMotion && idle > 8) {
+        px += Math.sin(time * 0.12) * 0.08;
+        py += Math.cos(time * 0.1) * 0.05;
       }
 
+      camera.position.x = px;
+      camera.position.y = py - scrollProgress * 0.4;
+      camera.position.z = base.z + scrollDolly;
       camera.lookAt(px * 0.3, py * 0.2 - scrollProgress * 0.2, 0);
     },
   };

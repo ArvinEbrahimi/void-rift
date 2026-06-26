@@ -5,6 +5,7 @@ import { createLightingRig } from './webgl/scene/lighting-rig.js';
 import { createParticles } from './webgl/particles.js';
 import { createNebulaVolume } from './webgl/environment/nebula-volume.js';
 import { createRift } from './webgl/rift.js';
+import { createRiftParticles } from './webgl/rift/rift-particles.js';
 import { createPostprocessing } from './webgl/postprocessing.js';
 import { createMouseParallax } from './webgl/mouse-parallax.js';
 import { createOverlay } from './ui/overlay.js';
@@ -15,17 +16,22 @@ import { initCursor } from './ui/cursor.js';
 import { createRAF } from './utils/raf.js';
 import { createResizeHandler } from './utils/resize.js';
 import { createScrollController } from './utils/scroll.js';
+import { detectQualityTier, getTierConfig } from './utils/quality-tier.js';
 import { gsap } from 'gsap';
+
+const tier = detectQualityTier();
+const tierConfig = getTierConfig(tier);
 
 const { scene, camera, renderer } = createScene();
 const cameraRig = createCameraRig(camera);
-const rift = createRift(scene);
+const rift = createRift(scene, tierConfig);
 const lightingRig = createLightingRig(scene, rift.group);
 rift.bindLighting(lightingRig.uniforms);
 
-const particles = createParticles(scene, rift.group);
+const riftParticles = createRiftParticles(rift.group, tierConfig);
+const particles = createParticles(scene, tierConfig);
 const nebula = createNebulaVolume(scene);
-const pp = createPostprocessing(renderer, scene, camera);
+const pp = createPostprocessing(renderer, scene, camera, tierConfig);
 const parallax = createMouseParallax();
 
 const overlay = createOverlay();
@@ -90,7 +96,7 @@ createRAF([
     parallaxState.y = target.y;
 
     cameraRig.setParallax(target.x, target.y);
-    cameraRig.update();
+    cameraRig.update(time);
 
     lightingRig.setMouseTarget(target.x, target.y);
     lightingRig.update(time, proximity);
@@ -99,6 +105,7 @@ createRAF([
     nebula.setParallax(target.x, scroll.getProgress());
     nebula.update(time);
     rift.update(time, proximity);
+    riftParticles.update(time, rift.uniforms.uReveal.value);
     pp.setChromaticIntensity(target.x, target.y);
     pp.composer.render();
   },
