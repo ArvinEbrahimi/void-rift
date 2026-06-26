@@ -1,0 +1,211 @@
+.section--about {
+  background: rgba(3, 3, 10, 0.94);
+  border-top: 1px solid rgba(110, 63, 255, 0.15);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
+
+.about-editorial {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.85fr) 1.4fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  margin-bottom: 3rem;
+}
+
+.about-avatar {
+  position: relative;
+  width: 140px;
+  height: 160px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  background: linear-gradient(145deg, rgba(26, 10, 61, 0.9), rgba(110, 63, 255, 0.35));
+  border: 1px solid rgba(168, 85, 247, 0.4);
+}
+
+.about-avatar__monogram {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--rift-glow);
+  letter-spacing: 0.1em;
+}
+
+.about-avatar__ring {
+  position: absolute;
+  inset: -8px;
+  border: 1px solid rgba(168, 85, 247, 0.25);
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  animation: about-ring 4s ease-in-out infinite;
+}
+
+@keyframes about-ring {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+.about-pull-quote {
+  margin: 0 0 1.5rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--rift-glow);
+}
+
+.about-pull-quote p {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.about-cv {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem 1.1rem;
+  border: 1px solid rgba(110, 63, 255, 0.4);
+  text-decoration: none;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: border-color var(--dur-fast), color var(--dur-fast);
+}
+
+.about-cv small {
+  font-size: 0.58rem;
+  color: var(--text-dim);
+  text-transform: none;
+  letter-spacing: 0.06em;
+}
+
+.about-cv:hover {
+  border-color: var(--rift-glow);
+  color: var(--rift-glow);
+}
+
+.about-editorial__title {
+  margin-bottom: 1.25rem;
+}
+
+.about-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.about-columns p {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text-dim);
+}
+
+.about-timeline {
+  list-style: none;
+  border-top: 1px solid rgba(110, 63, 255, 0.15);
+}
+
+.about-timeline__item {
+  display: grid;
+  grid-template-columns: 4rem 1fr;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(110, 63, 255, 0.1);
+}
+
+.about-timeline__year {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--rift-glow);
+  letter-spacing: 0.1em;
+}
+
+.about-timeline__org {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.about-timeline__role {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+.about-values {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(110, 63, 255, 0.15);
+}
+
+.about-values__item {
+  padding: 1.25rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--panel-radius);
+}
+
+.about-values__icon {
+  width: 36px;
+  height: 36px;
+  color: var(--rift-glow);
+  margin-bottom: 0.75rem;
+}
+
+.about-values__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.about-values__title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.about-values__desc {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+
+@media (max-width: 900px) {
+  .about-editorial {
+    grid-template-columns: 1fr;
+  }
+
+  .about-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .about-values {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-avatar__ring {
+    animation: none;
+  }
+}

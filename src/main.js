@@ -20,6 +20,7 @@ import { createResizeHandler } from './utils/resize.js';
 import { createScrollController } from './utils/scroll.js';
 import { detectQualityTier, getTierConfig } from './utils/quality-tier.js';
 import { createShell } from './ui/shell/shell.js';
+import { createFooter } from './ui/footer/footer.js';
 import { createRiftEnvMap } from './webgl/environment/pmrem-env.js';
 import { warmupShaders } from './utils/shader-warmup.js';
 import { gsap } from 'gsap';
@@ -55,8 +56,33 @@ const { workUi } = createSections({
   dustCount: tierConfig.dustCount,
   riftCount: tierConfig.riftCount,
 });
+
+function initMagneticTargets() {
+  initMagnetic(document.querySelectorAll('.magnetic-target:not([data-magnetic])'));
+  document.querySelectorAll('.magnetic-target:not([data-magnetic])').forEach((el) => {
+    el.dataset.magnetic = '1';
+  });
+}
+
 initCursor();
-initMagnetic(document.querySelectorAll('.magnetic-target'));
+initMagneticTargets();
+
+createFooter({
+  onBackToVoid() {
+    gsap.fromTo(
+      rift.uniforms.uReveal,
+      { value: Math.max(0.6, rift.uniforms.uReveal.value) },
+      { value: 1, duration: 1.4, ease: 'power2.out' }
+    );
+    gsap.fromTo(
+      lightingRig.lights.core,
+      { intensity: lightingRig.lights.core.intensity },
+      { intensity: 2.8, duration: 0.6, yoyo: true, repeat: 1, ease: 'power2.inOut' }
+    );
+  },
+});
+
+initMagneticTargets();
 
 const loadingBar = document.createElement('div');
 loadingBar.className = 'loading-bar';
@@ -81,7 +107,15 @@ const scroll = createScrollController({
   },
 });
 
-warmupShaders(renderer, scene, camera).catch(() => {});
+warmupShaders(renderer, scene, camera)
+  .then(() => {
+    const egg = document.querySelector('[data-shader-egg]');
+    if (egg && window.__VOID_SHADER_MS) {
+      egg.textContent = `shader compile: ${window.__VOID_SHADER_MS}ms`;
+      egg.hidden = false;
+    }
+  })
+  .catch(() => {});
 
 window.addEventListener('load', () => {
   playIntro(() => {

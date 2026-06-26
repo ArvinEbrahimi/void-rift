@@ -149,18 +149,18 @@ The site is a **mission control interface** for a creative engineer. The WebGL r
 
 ### 3.7 Section 05 — About (`ui/sections/about/`)
 
-- [ ] **U-ABOUT-01** Editorial layout: large pull quote + body columns (magazine style)
-- [ ] **U-ABOUT-02** Photo or abstract avatar frame — hex clip-path matching rift brand
-- [ ] **U-ABOUT-03** Timeline: career milestones (year + company + role)
-- [ ] **U-ABOUT-04** Values row: 3 pillars with custom icons (Performance, Craft, Clarity)
-- [ ] **U-ABOUT-05** Download CV button with file size + format hint
+- [x] **U-ABOUT-01** Editorial layout: large pull quote + body columns (magazine style)
+- [x] **U-ABOUT-02** Photo or abstract avatar frame — hex clip-path matching rift brand
+- [x] **U-ABOUT-03** Timeline: career milestones (year + company + role)
+- [x] **U-ABOUT-04** Values row: 3 pillars with custom icons (Performance, Craft, Clarity)
+- [x] **U-ABOUT-05** Download CV button with file size + format hint
 
 ### 3.8 Section 06 — Metrics (`ui/sections/metrics/`)
 
-- [ ] **U-MET-01** GitHub API integration (public repos, languages, contributions) — or static fallback
-- [ ] **U-MET-02** Animated counters on scroll into view (GSAP snap)
-- [ ] **U-MET-03** Language breakdown — CSS bar or donut (violet palette only)
-- [ ] **U-MET-04** "Lines of craft" stats: projects shipped, years exp, technologies
+- [x] **U-MET-01** GitHub API integration (public repos, languages, contributions) — or static fallback
+- [x] **U-MET-02** Animated counters on scroll into view (GSAP snap)
+- [x] **U-MET-03** Language breakdown — CSS bar or donut (violet palette only)
+- [x] **U-MET-04** "Lines of craft" stats: projects shipped, years exp, technologies
 
 ### 3.9 Section 07 — Testimonials (`ui/sections/testimonials/`)
 
@@ -170,16 +170,16 @@ The site is a **mission control interface** for a creative engineer. The WebGL r
 
 ### 3.10 Section 08 — Contact (`ui/sections/contact/`)
 
-- [ ] **U-CONT-01** Split: left = message form, right = direct links + availability calendar hint
-- [ ] **U-CONT-02** Form: name, email, message — vanilla JS validation, no backend (Formspree or mailto fallback)
-- [ ] **U-CONT-03** Social row: GitHub, LinkedIn, Email, Telegram — custom SVG icons
-- [ ] **U-CONT-04** "Response time: ~24h" trust signal
-- [ ] **U-CONT-05** Footer merge: back-to-top flies rift scale up (sync with WebGL)
+- [x] **U-CONT-01** Split: left = message form, right = direct links + availability calendar hint
+- [x] **U-CONT-02** Form: name, email, message — vanilla JS validation, no backend (Formspree or mailto fallback)
+- [x] **U-CONT-03** Social row: GitHub, LinkedIn, Email, Telegram — custom SVG icons
+- [x] **U-CONT-04** "Response time: ~24h" trust signal
+- [x] **U-CONT-05** Footer merge: back-to-top flies rift scale up (sync with WebGL)
 
 ### 3.11 Footer (`ui/footer/`)
 
-- [ ] **U-FOOT-01** Minimal — monogram, year, "Built with Three.js + Vanilla JS"
-- [ ] **U-FOOT-02** Hidden credit: shader compile time on first load (dev easter egg)
+- [x] **U-FOOT-01** Minimal — monogram, year, "Built with Three.js + Vanilla JS"
+- [x] **U-FOOT-02** Hidden credit: shader compile time on first load (dev easter egg)
 
 ---
 

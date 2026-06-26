@@ -7,6 +7,7 @@ const RAIL_SECTIONS = [
   { id: 'lab', label: 'Lab', href: '#lab' },
   { id: 'process', label: 'Process', href: '#process' },
   { id: 'about', label: 'About', href: '#about' },
+  { id: 'metrics', label: 'Metrics', href: '#metrics' },
   { id: 'contact', label: 'Contact', href: '#contact' },
 ];
 
@@ -72,6 +73,7 @@ export function createShell() {
     const probe = window.scrollY + window.innerHeight * 0.35;
     let active = 'hero';
     if (probe >= document.getElementById('contact')?.offsetTop) active = 'contact';
+    else if (probe >= document.getElementById('metrics')?.offsetTop) active = 'metrics';
     else if (probe >= document.getElementById('about')?.offsetTop) active = 'about';
     else if (probe >= document.getElementById('process')?.offsetTop) active = 'process';
     else if (probe >= document.getElementById('lab')?.offsetTop) active = 'lab';

@@ -3,6 +3,10 @@
 @import './style/components/rail.css';
 @import './style/components/telemetry.css';
 @import './style/components/status.css';
+@import './style/sections/contact.css';
+@import './style/sections/metrics.css';
+@import './style/sections/about.css';
+@import './style/components/footer.css';
 @import './style/sections/process.css';
 @import './style/sections/lab.css';
 @import './style/sections/stack.css';
@@ -474,46 +478,6 @@ body {
   background: linear-gradient(180deg, transparent 0%, rgba(7, 7, 26, 0.4) 20%, rgba(7, 7, 26, 0.85) 100%);
   content-visibility: auto;
   contain-intrinsic-size: auto 900px;
-}
-
-.section--about {
-  background: rgba(3, 3, 10, 0.92);
-  border-top: 1px solid rgba(110, 63, 255, 0.15);
-}
-
-.section--contact {
-  background: linear-gradient(180deg, rgba(3, 3, 10, 0.92) 0%, rgba(26, 10, 61, 0.4) 100%);
-  border-top: 1px solid rgba(110, 63, 255, 0.15);
-}
-
-.contact-links {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.contact-links__item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  padding: 1.25rem 1.5rem;
-  border: 1px solid rgba(110, 63, 255, 0.25);
-  text-decoration: none;
-  color: var(--text-primary);
-  transition: border-color 0.2s, color 0.2s;
-}
-
-.contact-links__item span {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-}
-
-.contact-links__item:hover {
-  border-color: var(--rift-glow);
-  color: var(--rift-glow);
 }
 
 @media (max-width: 768px) {
