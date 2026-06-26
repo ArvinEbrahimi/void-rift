@@ -15,7 +15,7 @@ import {
   accretionFragmentShader,
   ribbonVertexShader,
   ribbonFragmentShader,
-} from './rift/shaders.js';
+} from './rift/shaders/index.js';
 import {
   createPortalShellGeometry,
   createFacetGeometry,

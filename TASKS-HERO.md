@@ -92,7 +92,7 @@ src/webgl/
 - [x] **H-GEO-06** Add thin energy ribbons (Catmull-Rom curves) orbiting portal on 3 axes
 - [ ] **H-GEO-07** LOD: far = merged mesh + simplified shader; near = full detail
 
-- [ ] **H-MAT-01** Split monolithic `shaders.js` into `.glsl` files with Vite `?raw` import
+- [x] **H-MAT-01** Split monolithic `shaders.js` into `.glsl` files with Vite `?raw` import
 - [x] **H-MAT-02** Shell shader v2 (partial — key/rim wrap lighting, 6-octave FBM, thickness absorption):
   - 6-octave FBM displacement
   - Ridged multifractal for crystal facets
@@ -101,8 +101,8 @@ src/webgl/
   - Subsurface scatter fake (wrap lighting term)
 - [x] **H-MAT-03** Tunnel shader v2: logarithmic spiral UV, depth fog inside tunnel, event horizon darkening
 - [x] **H-MAT-04** Unified `uQuality` uniform — degrades octaves on mobile
-- [ ] **H-MAT-05** Temporal stability — no shader flicker at grazing angles (clamp derivatives)
-- [ ] **H-MAT-06** Normal reconstruction from displacement for accurate fresnel
+- [x] **H-MAT-05** Temporal stability — no shader flicker at grazing angles (clamp derivatives)
+- [x] **H-MAT-06** Normal reconstruction from displacement for accurate fresnel
 
 ### 3.3 Lighting (Critical — highest impact)
 
