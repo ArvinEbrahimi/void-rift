@@ -14,6 +14,8 @@ import { createContactSectionHTML, initContactSection } from './sections/contact
 export function createSections(tierStats = {}) {
   const main = document.createElement('main');
   main.className = 'page-content';
+  main.id = 'main-content';
+  main.tabIndex = -1;
   main.innerHTML = `
     <div class="hero-spacer" aria-hidden="true"></div>
     ${createWorkSectionHTML()}

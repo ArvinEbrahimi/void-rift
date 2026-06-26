@@ -3,7 +3,7 @@ export function createFooter({ onBackToVoid } = {}) {
   footer.className = 'void-footer';
   footer.innerHTML = `
     <div class="void-footer__inner">
-      <a href="#" class="void-footer__monogram magnetic-target" data-back-to-void data-cursor="expand" aria-label="Back to void">
+      <a href="#" class="void-footer__monogram magnetic-target" data-back-to-void data-cursor="expand" aria-label="AE — Back to void">
         <span>AE</span>
       </a>
       <p class="void-footer__credit">Built with Three.js + Vanilla JS</p>

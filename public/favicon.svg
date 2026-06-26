@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <rect width="32" height="32" fill="#03030a"/>
+  <path d="M16 4L26 16L16 28L6 16L16 4Z" stroke="#a855f7" stroke-width="1.5"/>
+  <text x="16" y="18" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" font-weight="700" fill="#f4f0ff">AE</text>
+</svg>

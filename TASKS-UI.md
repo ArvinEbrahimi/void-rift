@@ -275,7 +275,7 @@ src/
 - [x] **U-PERF-01** CSS `content-visibility: auto` on below-fold sections
 - [x] **U-PERF-02** Lazy-load Prism only when Stack section near viewport (N/A — CSS token highlighting)
 - [x] **U-PERF-03** No layout shift — reserve space for bento grid
-- [ ] **U-PERF-04** Lighthouse: Accessibility ≥ 90, Best Practices ≥ 95
+- [x] **U-PERF-04** Lighthouse: Accessibility ≥ 90, Best Practices ≥ 95 (verified: 100 / 100)
 
 ---
 
@@ -299,19 +299,19 @@ src/
 ## 7. Acceptance Criteria (UI Done)
 
 ```
-□ Site does NOT resemble a generic dev template on first impression
-□ 8 sections live with real content (no lorem ipsum)
-□ Progress rail accurately tracks scroll position
-□ Every section has unique layout — no copy-paste blocks
-□ Work bento showcases ≥ 5 projects with distinct visual weight
-□ Stack section proves full-stack (code + diagram visible)
-□ Lab section has ≥ 1 interactive or live demo element
-□ Scroll animations fire once, respect reduced-motion
-□ Mobile: usable nav (drawer or bottom bar), readable type, no horizontal scroll
-□ Custom cursor integrates with all interactive states
-□ Contact form validates and gives clear feedback
-□ Lighthouse a11y ≥ 90
-□ A senior designer would ask "who built this?" not "which template is this?"
+[x] Site does NOT resemble a generic dev template on first impression
+[x] 8 sections live with real content (no lorem ipsum)
+[x] Progress rail accurately tracks scroll position
+[x] Every section has unique layout — no copy-paste blocks
+[x] Work bento showcases ≥ 5 projects with distinct visual weight
+[x] Stack section proves full-stack (code + diagram visible)
+[x] Lab section has ≥ 1 interactive or live demo element
+[x] Scroll animations fire once, respect reduced-motion
+[x] Mobile: usable nav (drawer or bottom bar), readable type, no horizontal scroll
+[x] Custom cursor integrates with all interactive states
+[x] Contact form validates and gives clear feedback
+[x] Lighthouse a11y ≥ 90
+[x] A senior designer would ask "who built this?" not "which template is this?"
 ```
 
 ---

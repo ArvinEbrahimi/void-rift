@@ -36,19 +36,19 @@ export function createParticles(scene, tierConfig = getTierConfig()) {
 
   starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
   starGeo.setAttribute('size', new THREE.BufferAttribute(starSizes, 1));
-  starGeo.setAttribute('color', new THREE.BufferAttribute(starColors, 3));
+  starGeo.setAttribute('aColor', new THREE.BufferAttribute(starColors, 3));
 
   const starMat = new THREE.ShaderMaterial({
     uniforms: { uTime: { value: 0 }, uScrollVel: { value: 0 }, uFogDensity: { value: 0.00012 } },
     vertexShader: `
       attribute float size;
-      attribute vec3 color;
+      attribute vec3 aColor;
       varying vec3 vColor;
       varying float vDepth;
       uniform float uTime;
       uniform float uScrollVel;
       void main() {
-        vColor = color;
+        vColor = aColor;
         vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
         vDepth = -mvPosition.z;
         float twinkle = 0.8 + 0.2 * sin(uTime * 2.0 + position.x * 10.0);
@@ -72,7 +72,6 @@ export function createParticles(scene, tierConfig = getTierConfig()) {
     transparent: true,
     depthWrite: false,
     blending: THREE.AdditiveBlending,
-    vertexColors: true,
   });
 
   const stars = new THREE.Points(starGeo, starMat);
@@ -107,7 +106,7 @@ export function createParticles(scene, tierConfig = getTierConfig()) {
   }
 
   dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPos, 3));
-  dustGeo.setAttribute('color', new THREE.BufferAttribute(dustColors, 3));
+  dustGeo.setAttribute('aColor', new THREE.BufferAttribute(dustColors, 3));
   dustGeo.setAttribute('size', new THREE.BufferAttribute(dustSizes, 1));
   dustGeo.setAttribute('phase', new THREE.BufferAttribute(dustPhase, 1));
 
@@ -115,13 +114,13 @@ export function createParticles(scene, tierConfig = getTierConfig()) {
     uniforms: { uTime: { value: 0 }, uFogDensity: { value: 0.00035 } },
     vertexShader: `
       attribute float size;
-      attribute vec3 color;
+      attribute vec3 aColor;
       attribute float phase;
       varying vec3 vColor;
       varying float vDepth;
       uniform float uTime;
       void main() {
-        vColor = color;
+        vColor = aColor;
         vec3 pos = position;
         float t = uTime * 0.12 + phase;
         pos.x += sin(t + position.z * 0.3) * 0.12 + sin(t * 2.1) * 0.04;
@@ -148,7 +147,6 @@ export function createParticles(scene, tierConfig = getTierConfig()) {
     transparent: true,
     depthWrite: false,
     blending: THREE.AdditiveBlending,
-    vertexColors: true,
   });
 
   const dust = new THREE.Points(dustGeo, dustMat);

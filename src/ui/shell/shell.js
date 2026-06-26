@@ -13,10 +13,16 @@ const RAIL_SECTIONS = [
 ];
 
 export function createShell() {
-  const skipLink = document.createElement('a');
+  const skipLink = document.createElement('button');
+  skipLink.type = 'button';
   skipLink.className = 'skip-link';
-  skipLink.href = '#work';
   skipLink.textContent = 'Skip to content';
+  skipLink.addEventListener('click', () => {
+    const main = document.getElementById('main-content');
+    if (!main) return;
+    main.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    main.focus({ preventScroll: true });
+  });
 
   const rail = document.createElement('aside');
   rail.className = 'void-rail';

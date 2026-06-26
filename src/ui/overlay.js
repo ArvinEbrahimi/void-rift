@@ -3,7 +3,7 @@ export function createOverlay() {
   overlay.className = 'overlay';
   overlay.innerHTML = `
     <nav class="overlay__nav" aria-label="Primary">
-      <a href="#" class="overlay__logo magnetic-target" data-cursor="expand" aria-label="Arvin Ebrahimi home">
+      <a href="#" class="overlay__logo magnetic-target" data-cursor="expand" aria-label="AE — Arvin Ebrahimi home">
         <span class="overlay__logo-mark">AE</span>
       </a>
       <ul class="overlay__links">
