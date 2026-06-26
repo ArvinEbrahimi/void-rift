@@ -200,6 +200,7 @@ createRAF([
       (1 - target.y) * 0.5 * window.innerHeight
     );
     pp.setChromaticIntensity(target.x, target.y, edgeFactor);
+    pp.updateFocus();
     pp.composer.render();
   },
 ]);

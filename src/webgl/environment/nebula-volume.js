@@ -102,6 +102,10 @@ export function createNebulaVolume(scene) {
 
   const layers = LAYERS.map((config) => {
     const layer = createNebulaLayer(config);
+    if (config.z <= -5) {
+      layer.mesh.renderOrder = -20;
+      layer.mat.depthWrite = true;
+    }
     group.add(layer.mesh);
     return layer;
   });

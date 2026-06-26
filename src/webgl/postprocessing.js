@@ -11,6 +11,7 @@ import {
 } from 'postprocessing';
 import * as THREE from 'three';
 import { addBloomTargets } from './post/bloom-selective.js';
+import { createDofEffect, updateDofEffect } from './post/dof.js';
 
 export function createPostprocessing(renderer, scene, camera, tierConfig = { postFx: 'full' }, bloomRoots = []) {
   const composer = new EffectComposer(renderer);
@@ -35,8 +36,12 @@ export function createPostprocessing(renderer, scene, camera, tierConfig = { pos
 
   const effects = [bloom];
   let chromaticAberration = null;
+  let dofEffect = null;
 
   if (!isMinimal) {
+    dofEffect = createDofEffect(camera, tierConfig);
+    effects.push(dofEffect);
+
     chromaticAberration = new ChromaticAberrationEffect({
       offset: new THREE.Vector2(0.0006, 0.0006),
       radialModulation: true,
@@ -61,10 +66,12 @@ export function createPostprocessing(renderer, scene, camera, tierConfig = { pos
 
   let scrollProgress = 0;
   const baseBloom = isMinimal ? 1.8 : 2.5;
+  const focusPoint = new THREE.Vector3(0, 0, 0);
 
   return {
     composer,
     bloom,
+    dofEffect,
     setChromaticIntensity(x, y, edgeFactor = 1) {
       if (!chromaticAberration) return;
       const edge = 0.6 + edgeFactor * 0.9;
@@ -76,6 +83,13 @@ export function createPostprocessing(renderer, scene, camera, tierConfig = { pos
       vignette.darkness = 0.65 + progress * 0.2;
       vignette.offset = 0.35 - progress * 0.08;
       bloom.intensity = baseBloom - progress * 0.55;
+      this.updateFocus();
+    },
+    updateFocus() {
+      if (dofEffect) {
+        const cameraDistance = camera.position.distanceTo(focusPoint);
+        updateDofEffect(dofEffect, { scrollProgress, cameraDistance });
+      }
     },
   };
 }

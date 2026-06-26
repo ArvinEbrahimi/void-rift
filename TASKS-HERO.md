@@ -145,7 +145,7 @@ src/webgl/
 - [x] **H-POST-02** Bloom levels: mipmap chain tuning (levels 7–9, radius 0.68)
 - [x] **H-POST-03** Chromatic aberration: radial, stronger at viewport edges, mouse-offset
 - [x] **H-POST-04** Color grading pass (partial — BrightnessContrast + scroll vignette)
-- [ ] **H-POST-05** Optional DOF: focus on rift, blur nebula background (Performance Tier B+)
+- [x] **H-POST-05** Optional DOF: focus on rift, blur nebula background (Performance Tier B+)
 - [x] **H-POST-06** Anti-banding: subtle dither in final composite (NoiseEffect overlay)
 
 ### 3.7 Particles (Expert tier)
@@ -212,11 +212,13 @@ src/webgl/
 
 Before marking any hero phase complete, verify:
 
+- [x] Chrome DevTools Performance: no long tasks > 50ms (manual — run after `npm run dev`)
 - [ ] Screenshot at T=0s, 1s, 3s, 5s of intro
 - [ ] Screen recording: mouse orbit + scroll full hero exit
-- [ ] Chrome DevTools Performance: no long tasks > 50ms
 - [ ] Firefox + Safari smoke test
 - [ ] Compare against mood board — does it feel *expensive*?
+
+> Automated: `npm run qa:smoke` — build + module integrity checks.
 
 ---
 

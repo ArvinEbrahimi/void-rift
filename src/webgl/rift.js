@@ -261,21 +261,21 @@ export function createRift(scene, tierConfig = { shaderQuality: 1.0 }) {
 
       if (shards.visible) {
         shards.children.forEach((instanced) => {
-        const orbits = instanced.userData.orbits;
-        const speeds = instanced.userData.speeds;
-        for (let i = 0; i < instanced.count; i++) {
-          const orbit = orbits[i] + time * speeds[i] * 0.15;
-          const r = 2.05 + Math.sin(time * 0.8 + i) * 0.12;
-          shardDummy.position.set(
-            Math.cos(orbit) * r,
-            Math.sin(time * 2 + i) * 0.1,
-            Math.sin(orbit) * r
-          );
-          shardDummy.rotation.set(time * speeds[i], time * speeds[i] * 1.3, 0);
-          shardDummy.updateMatrix();
-          instanced.setMatrixAt(i, shardDummy.matrix);
-        }
-        instanced.instanceMatrix.needsUpdate = true;
+          const orbits = instanced.userData.orbits;
+          const speeds = instanced.userData.speeds;
+          for (let i = 0; i < instanced.count; i++) {
+            const orbit = orbits[i] + time * speeds[i] * 0.15;
+            const r = 2.05 + Math.sin(time * 0.8 + i) * 0.12;
+            shardDummy.position.set(
+              Math.cos(orbit) * r,
+              Math.sin(time * 2 + i) * 0.1,
+              Math.sin(orbit) * r
+            );
+            shardDummy.rotation.set(time * speeds[i], time * speeds[i] * 1.3, 0);
+            shardDummy.updateMatrix();
+            instanced.setMatrixAt(i, shardDummy.matrix);
+          }
+          instanced.instanceMatrix.needsUpdate = true;
         });
       }
     },
