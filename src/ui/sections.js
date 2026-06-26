@@ -5,6 +5,10 @@ import { createLabSectionHTML, initLabSection } from './sections/lab/lab-section
 import { createProcessSectionHTML, initProcessTimeline } from './sections/process/process-section.js';
 import { createAboutSectionHTML } from './sections/about/about-section.js';
 import { createMetricsSectionHTML, initMetricsCounters } from './sections/metrics/metrics-section.js';
+import {
+  createTestimonialsSectionHTML,
+  initTestimonialsCarousel,
+} from './sections/testimonials/testimonials-section.js';
 import { createContactSectionHTML, initContactSection } from './sections/contact/contact-section.js';
 
 export function createSections(tierStats = {}) {
@@ -18,6 +22,7 @@ export function createSections(tierStats = {}) {
     ${createProcessSectionHTML()}
     ${createAboutSectionHTML()}
     ${createMetricsSectionHTML()}
+    ${createTestimonialsSectionHTML()}
     ${createContactSectionHTML()}
   `;
 
@@ -28,6 +33,7 @@ export function createSections(tierStats = {}) {
   const labSection = main.querySelector('#lab');
   const processSection = main.querySelector('#process');
   const metricsSection = main.querySelector('#metrics');
+  const testimonialsSection = main.querySelector('#testimonials');
   const contactSection = main.querySelector('#contact');
 
   const modal = createWorkModal();
@@ -36,6 +42,7 @@ export function createSections(tierStats = {}) {
   const labUi = initLabSection(labSection);
   initProcessTimeline(processSection);
   initMetricsCounters(metricsSection);
+  initTestimonialsCarousel(testimonialsSection);
   initContactSection(contactSection);
 
   const observer = new IntersectionObserver(

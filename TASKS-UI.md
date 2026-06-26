@@ -89,18 +89,18 @@ The site is a **mission control interface** for a creative engineer. The WebGL r
 - [x] **U-SHELL-02** Top **telemetry bar** — FPS, time Tehran, scroll %, `v1.0.0`
 - [x] **U-SHELL-03** Bottom **status bar** — coords, "SYS.ONLINE", GitHub link
 - [x] **U-SHELL-04** Persistent nav redesign — logo monogram, magnetic links, active section
-- [ ] **U-SHELL-05** `ScrollTrigger` integration (GSAP plugin) — register once in `scroll-animations.js`
+- [x] **U-SHELL-05** `ScrollTrigger` integration (GSAP plugin) — register once in `scroll-animations.js`
 - [ ] **U-SHELL-06** Smooth scroll: Lenis or custom spring scroll (match WebGL scroll progress)
 - [ ] **U-SHELL-07** Page transition: hero → content crossfade with rift position sync
 
 ### 3.2 Hero Overlay v2 (`ui/hero-overlay/`)
 
-- [ ] **U-HERO-01** Split layout option: name left-aligned, rift visual center-right (asymmetric)
+- [x] **U-HERO-01** Split layout option: name left-aligned, rift visual center-right (asymmetric)
 - [ ] **U-HERO-02** Role line: animated word cycle with 3D flip or scramble decode effect
 - [x] **U-HERO-03** CTA pair: `View Work ↓` primary + `GitHub` ghost — not single button
-- [ ] **U-HERO-04** Scroll indicator: custom SVG chevron with progress ring
-- [ ] **U-HERO-05** Easter egg: Konami or typed `void` triggers rift pulse
-- [ ] **U-HERO-06** Accessibility: skip-to-content link, focus trap off, `aria-live` on typewriter
+- [x] **U-HERO-04** Scroll indicator: custom SVG chevron with progress ring
+- [x] **U-HERO-05** Easter egg: Konami or typed `void` triggers rift pulse
+- [x] **U-HERO-06** Accessibility: skip-to-content link, focus trap off, `aria-live` on typewriter
 
 ### 3.3 Section 01 — Work (`ui/sections/work/`)
 
@@ -164,9 +164,9 @@ The site is a **mission control interface** for a creative engineer. The WebGL r
 
 ### 3.9 Section 07 — Testimonials (`ui/sections/testimonials/`)
 
-- [ ] **U-TEST-01** Carousel or stacked cards — quote + name + role
-- [ ] **U-TEST-02** Auto-advance with pause on hover
-- [ ] **U-TEST-03** Placeholder structure if no real quotes yet — clearly marked template
+- [x] **U-TEST-01** Carousel or stacked cards — quote + name + role
+- [x] **U-TEST-02** Auto-advance with pause on hover
+- [x] **U-TEST-03** Placeholder structure if no real quotes yet — clearly marked template
 
 ### 3.10 Section 08 — Contact (`ui/sections/contact/`)
 
@@ -272,7 +272,7 @@ src/
 
 ### Performance
 
-- [ ] **U-PERF-01** CSS `content-visibility: auto` on below-fold sections
+- [x] **U-PERF-01** CSS `content-visibility: auto` on below-fold sections
 - [ ] **U-PERF-02** Lazy-load Prism only when Stack section near viewport
 - [ ] **U-PERF-03** No layout shift — reserve space for bento grid
 - [ ] **U-PERF-04** Lighthouse: Accessibility ≥ 90, Best Practices ≥ 95

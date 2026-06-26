@@ -31,7 +31,7 @@ export function createContactSectionHTML() {
   return `
     <section id="contact" class="section section--contact">
       <div class="section__inner section__inner--wide">
-        <p class="section__label">// 07 — Contact</p>
+        <p class="section__label">// 08 — Contact</p>
         <h2 class="section__title">Let's build something memorable</h2>
 
         <div class="contact-split">

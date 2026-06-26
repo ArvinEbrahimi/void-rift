@@ -3,6 +3,8 @@
 @import './style/components/rail.css';
 @import './style/components/telemetry.css';
 @import './style/components/status.css';
+@import './style/components/mobile-nav.css';
+@import './style/sections/testimonials.css';
 @import './style/sections/contact.css';
 @import './style/sections/metrics.css';
 @import './style/sections/about.css';
@@ -152,6 +154,27 @@ body {
 .overlay__center {
   text-align: center;
   transform: translateY(-5vh);
+}
+
+@media (min-width: 1100px) {
+  .overlay__center {
+    text-align: left;
+    align-self: center;
+    margin-left: clamp(2rem, 8vw, 8rem);
+    max-width: 52vw;
+  }
+
+  .overlay__eyebrow {
+    justify-content: flex-start;
+  }
+
+  .overlay__name {
+    align-items: flex-start;
+  }
+
+  .overlay__ctas {
+    justify-content: flex-start;
+  }
 }
 
 .overlay__eyebrow {
@@ -305,29 +328,39 @@ body {
   color: var(--text-dim);
 }
 
-.overlay__scroll-line {
-  width: 1px;
+.overlay__scroll-ring-wrap {
+  position: relative;
+  width: 40px;
   height: 40px;
-  background: linear-gradient(to bottom, var(--text-dim), transparent);
-  animation: scroll-line 1.5s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-@keyframes scroll-line {
-  0% {
-    transform: scaleY(0);
-    transform-origin: top;
+.overlay__scroll-ring-track {
+  stroke: rgba(110, 63, 255, 0.2);
+}
+
+.overlay__scroll-ring-progress {
+  stroke: var(--rift-glow);
+  transition: stroke-dashoffset 0.08s linear;
+}
+
+.overlay__scroll-chevron {
+  position: absolute;
+  color: var(--rift-glow);
+  animation: scroll-chevron 1.5s ease-in-out infinite;
+}
+
+@keyframes scroll-chevron {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.6;
   }
   50% {
-    transform: scaleY(1);
-    transform-origin: top;
-  }
-  51% {
-    transform: scaleY(1);
-    transform-origin: bottom;
-  }
-  100% {
-    transform: scaleY(0);
-    transform-origin: bottom;
+    transform: translateY(3px);
+    opacity: 1;
   }
 }
 

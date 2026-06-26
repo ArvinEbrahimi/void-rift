@@ -1,0 +1,110 @@
+.section--testimonials {
+  background: rgba(7, 7, 26, 0.88);
+  border-top: 1px solid rgba(110, 63, 255, 0.12);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 400px;
+}
+
+.testimonials__note {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: #f0ab6b;
+  margin: -0.5rem 0 1.5rem;
+  opacity: 0.85;
+}
+
+.testimonials-carousel {
+  position: relative;
+  max-width: 720px;
+}
+
+.testimonial-card {
+  position: relative;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  animation: testimonial-in 0.5s var(--ease-out-expo);
+}
+
+.testimonial-card[hidden] {
+  display: none;
+}
+
+@keyframes testimonial-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.testimonial-card__badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.45rem;
+  border: 1px solid rgba(240, 171, 107, 0.45);
+  color: #f0ab6b;
+}
+
+.testimonial-card__quote {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2.5vw, 1.65rem);
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin: 0 0 1.5rem;
+  padding-right: 4rem;
+}
+
+.testimonial-card__name {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.testimonial-card__role {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+}
+
+.testimonials-dots {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+.testimonials-dots__btn {
+  width: 28px;
+  height: 4px;
+  padding: 0;
+  border: none;
+  background: rgba(110, 63, 255, 0.2);
+  cursor: pointer;
+  transition: background var(--dur-fast), width var(--dur-fast);
+}
+
+.testimonials-dots__btn.is-active {
+  background: var(--rift-glow);
+  width: 40px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonial-card {
+    animation: none;
+  }
+}

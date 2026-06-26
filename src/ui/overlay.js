@@ -30,9 +30,9 @@ export function createOverlay() {
         </span>
       </h1>
 
-      <p class="overlay__subtitle">
+      <p class="overlay__subtitle" aria-live="polite" aria-atomic="true">
         <span class="overlay__subtitle-text"></span>
-        <span class="overlay__cursor-blink">_</span>
+        <span class="overlay__cursor-blink" aria-hidden="true">_</span>
       </p>
 
       <div class="overlay__ctas">
@@ -55,9 +55,27 @@ export function createOverlay() {
         <span class="overlay__coord-label" style="margin-left:1.5rem">LON</span>
         <span class="overlay__coord-val" id="coord-lon">51.3890° E</span>
       </div>
-      <div class="overlay__scroll-hint">
+      <div class="overlay__scroll-hint" aria-hidden="true">
+        <div class="overlay__scroll-ring-wrap">
+          <svg class="overlay__scroll-ring" viewBox="0 0 40 40" width="40" height="40">
+            <circle class="overlay__scroll-ring-track" cx="20" cy="20" r="17" fill="none" stroke-width="1.5" />
+            <circle
+              class="overlay__scroll-ring-progress"
+              cx="20"
+              cy="20"
+              r="17"
+              fill="none"
+              stroke-width="1.5"
+              stroke-dasharray="106.8"
+              stroke-dashoffset="106.8"
+              transform="rotate(-90 20 20)"
+            />
+          </svg>
+          <svg class="overlay__scroll-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M6 2v6M6 8L4 6M6 8l2-2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
         <span>SCROLL</span>
-        <div class="overlay__scroll-line"></div>
       </div>
     </div>
   `;

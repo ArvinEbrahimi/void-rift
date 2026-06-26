@@ -21,6 +21,9 @@ import { createScrollController } from './utils/scroll.js';
 import { detectQualityTier, getTierConfig } from './utils/quality-tier.js';
 import { createShell } from './ui/shell/shell.js';
 import { createFooter } from './ui/footer/footer.js';
+import { createMobileNav } from './ui/shell/mobile-nav.js';
+import { initScrollAnimations } from './ui/animations/scroll-animations.js';
+import { initEasterEgg } from './ui/animations/easter-egg.js';
 import { createRiftEnvMap } from './webgl/environment/pmrem-env.js';
 import { warmupShaders } from './utils/shader-warmup.js';
 import { gsap } from 'gsap';
@@ -64,25 +67,36 @@ function initMagneticTargets() {
   });
 }
 
-initCursor();
-initMagneticTargets();
+const scrollRing = document.querySelector('.overlay__scroll-ring-progress');
+const RING_LENGTH = 106.8;
+
+function pulseRift() {
+  gsap.fromTo(
+    rift.uniforms.uReveal,
+    { value: Math.max(0.5, rift.uniforms.uReveal.value) },
+    { value: 1, duration: 1.2, ease: 'power2.out' }
+  );
+  gsap.fromTo(
+    lightingRig.lights.core,
+    { intensity: lightingRig.lights.core.intensity },
+    { intensity: 3.2, duration: 0.5, yoyo: true, repeat: 1, ease: 'power2.inOut' }
+  );
+  gsap.fromTo(
+    rift.group.scale,
+    { x: rift.group.scale.x * 0.92, y: rift.group.scale.y * 0.92, z: rift.group.scale.z * 0.92 },
+    { x: rift.group.scale.x, y: rift.group.scale.y, z: rift.group.scale.z, duration: 1, ease: 'elastic.out(1, 0.5)' }
+  );
+}
+
+initEasterEgg(pulseRift);
+createMobileNav();
 
 createFooter({
-  onBackToVoid() {
-    gsap.fromTo(
-      rift.uniforms.uReveal,
-      { value: Math.max(0.6, rift.uniforms.uReveal.value) },
-      { value: 1, duration: 1.4, ease: 'power2.out' }
-    );
-    gsap.fromTo(
-      lightingRig.lights.core,
-      { intensity: lightingRig.lights.core.intensity },
-      { intensity: 2.8, duration: 0.6, yoyo: true, repeat: 1, ease: 'power2.inOut' }
-    );
-  },
+  onBackToVoid: pulseRift,
 });
 
 initMagneticTargets();
+initCursor();
 
 const loadingBar = document.createElement('div');
 loadingBar.className = 'loading-bar';
@@ -101,6 +115,9 @@ const scroll = createScrollController({
     lightingRig.setScrollProgress(progress);
     nebula.setParallax(parallaxState.x, progress);
     pp.setScrollProgress(progress);
+    if (scrollRing) {
+      scrollRing.style.strokeDashoffset = String(RING_LENGTH * (1 - progress));
+    }
   },
   onVelocity(vel) {
     scrollVelocity = vel;
@@ -128,6 +145,7 @@ window.addEventListener('load', () => {
     });
   });
   initSmoothNav();
+  initScrollAnimations();
 });
 
 const sections = ['work', 'stack', 'lab', 'about', 'contact'];
